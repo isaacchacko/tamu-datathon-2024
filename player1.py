@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify
 from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
 
 # Import This
-# from <AGENT FILENAME> import <AGENT CLASSNAME>
+from q_learning_agent import QLearningAgent
+from PushBattle import PLAYER1
 
 app = Flask(__name__)
 
@@ -32,7 +33,8 @@ def start_game():
 
     ##### MODIFY BELOW #####
 
-    # agent = RandomAgent()
+    agent = QLearningAgent(PLAYER1)
+    agent.load_model('model1.h5')
 
     ###################
     
@@ -76,7 +78,7 @@ def make_move():
     # Move logic should go here
     # This is where you'd call your minimax/MCTS/neural network/etc
 
-    # move = agent.get_best_move(game)
+    move = agent.get_best_move(game)
 
     ###################
     

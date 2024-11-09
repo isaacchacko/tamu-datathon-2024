@@ -4,7 +4,8 @@ from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _t
 # This simulates player 2 always playing random moves - you may modify to test locally
 
 # Import This
-from random_agent import RandomAgent
+from q_learning_agent import QLearningAgent
+from PushBattle import PLAYER2
 
 app = Flask(__name__)
 
@@ -34,7 +35,8 @@ def start_game():
 
     ##### MODIFY BELOW #####
 
-    agent = RandomAgent()
+    agent = QLearningAgent(PLAYER2)
+    agent.load_model('model2.h5')
 
     ###################
     
