@@ -4,7 +4,7 @@ from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _t
 # This simulates player 2 always playing random moves - you may modify to test locally
 
 # Import This
-from random_agent import RandomAgent
+from IB_agent import IBAgent
 
 app = Flask(__name__)
 
@@ -36,7 +36,7 @@ def start_game():
 
     ##### MODIFY BELOW #####
 
-    agent = RandomAgent()
+    agent = IBAgent()
 
     ###################
     
@@ -79,8 +79,10 @@ def make_move():
 
     # Move logic should go here
     # This is where you'd call your minimax/MCTS/neural network/etc
-
+    if not hasattr(agent, 'simulations'):
+        print("Error: `simulations` attribute is missing from agent.")
     move = agent.get_best_move(game)
+    print(f"IBAgent generated move: {move}")  # Debugging output to verify move format
 
     ###################
     
