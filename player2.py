@@ -8,6 +8,8 @@ from random_agent import RandomAgent
 
 app = Flask(__name__)
 
+# test
+
 agent = None
 
 @app.route('/start', methods=['POST'])
