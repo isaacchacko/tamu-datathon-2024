@@ -538,7 +538,8 @@ def combine_heatmaps(heatmap_functions,
     # Iterate through each heatmap function
     for func in heatmap_functions:
         # Generate the heatmap using the current function
-        heatmap = func(board,
+        heatmap = func(game,
+                       board,
                        turn_count,
                        attempt_number,
                        lastFitness)
