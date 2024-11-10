@@ -39,13 +39,15 @@ def start_game():
     if agent is None:
         config_path = os.path.join(os.path.dirname(__file__), 'neat_config.txt')
         agent = NEATAgent(config_path)
-        agent.train(generations=1000) 
-    
+        if not agent.load_genome():
+            print("No saved genome found. Training a new one...")
+            agent.train(generations=1000)  # Adjust the number of generations as needed
+            
     ###################
     
     return jsonify({
         "message": "Game started successfully"
-    })
+    })  
 
 @app.route('/move', methods=['POST'])
 def make_move():

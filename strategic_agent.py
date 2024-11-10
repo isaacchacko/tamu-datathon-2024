@@ -1,5 +1,7 @@
 import neat
 import random
+import pickle
+import os
 from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
 
 class NEATAgent:
@@ -9,6 +11,7 @@ class NEATAgent:
                                   config_file)
         self.population = neat.Population(self.config)
         self.best_genome = None
+        self.genome_file = 'best_genome.pkl'
 
     def train(self, generations=50):
         self.population.add_reporter(neat.StdOutReporter(True))
@@ -16,6 +19,20 @@ class NEATAgent:
         self.population.add_reporter(stats)
 
         self.best_genome = self.population.run(self.evaluate_genomes, generations)
+        self.save_genome()
+
+    def save_genome(self):
+        with open(self.genome_file, 'wb') as f:
+            pickle.dump(self.best_genome, f)
+        print(f"Best genome saved to {self.genome_file}")
+
+    def load_genome(self):
+        if os.path.exists(self.genome_file):
+            with open(self.genome_file, 'rb') as f:
+                self.best_genome = pickle.load(f)
+            print(f"Best genome loaded from {self.genome_file}")
+            return True
+        return False
 
     def evaluate_genomes(self, genomes, config):
         for genome_id, genome in genomes:
@@ -74,12 +91,20 @@ class NEATAgent:
     
     def get_best_move(self, game):
         if self.best_genome is None:
-            return self.get_random_move(game)
+            if not self.load_genome():
+                return self.get_random_move(game)
         
         net = neat.nn.FeedForwardNetwork.create(self.best_genome, self.config)
         board_state = self.get_board_state(game)
         output = net.activate(board_state)
-        return self.interpret_output(output, game)
+        move = self.interpret_output(output, game)
+        
+        # Simple opponent modeling
+        opponent_move = self.predict_opponent_move(game)
+        if self.is_better_move(game, move, opponent_move):
+            return move
+        else:
+            return self.get_random_move(game)
 
     def get_random_move(self, game):
         possible_moves = self.get_possible_moves(game)
