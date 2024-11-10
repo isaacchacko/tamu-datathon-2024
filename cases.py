@@ -40,40 +40,6 @@ def static_weight(game,
 
     return output
 
-# example function for pattern checks
-
-
-@evaluate_runtime
-def get_initial_fitness(game,
-                        board,
-                        turn_count,
-                        attempt_number,
-                        lastFitness):
-
-    # useful variables
-    board = game.board
-    p1_pieces = game.p1_pieces
-    p2_pieces = game.p2_pieces
-    current_player = game.current_player
-    if current_player == 1:
-        current_player_pieces = p1_pieces
-    else:
-        current_player_pieces = p2_pieces
-    turn_count += 1
-
-    fitness = 0
-    # add your fitness check functions here
-
-    # add your code here
-    fitness += evaluate_piece_count(current_player_pieces)
-    fitness += evaluate_defensive_formation(board, current_player)
-    fitness += evaluate_distance_to_victory(board, current_player, current_player * -1)
-    fitness += evaluate_opponent_cluster_disruption(board, current_player * -1)
-    fitness +=  evaluate_potential_win_pathways(board, current_player)
-    fitness += get_best_move(board, current_player)
-
-    return fitness
-
 def get_hot(heatmap):
     # Ensure the input is a NumPy array
     heatmap = np.array(heatmap)
