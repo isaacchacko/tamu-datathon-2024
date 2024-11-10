@@ -40,6 +40,10 @@ def play_game(net):
     
     return calculate_fitness(game)
 
+def get_board_state(game):
+    # Flatten the board and normalize values
+    return [cell / 2 for row in game.board for cell in row]
+
 def get_possible_moves(game):
     moves = []
     if game.current_player == PLAYER1:
@@ -63,10 +67,6 @@ def get_possible_moves(game):
                             if game.board[r1][c1] == EMPTY:
                                 moves.append((r0, c0, r1, c1))
     return moves
-
-def get_board_state(game):
-    # Flatten the board and normalize values
-    return [cell / 2 for row in game.board for cell in row]
 
 def interpret_output(output, game):
     if (game.current_player == PLAYER1 and game.p1_pieces < NUM_PIECES) or \
@@ -130,7 +130,7 @@ def run_neat(config_file):
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     
-    winner = p.run(eval_genomes, 2)  # Run for 50 generations
+    winner = p.run(eval_genomes, 50)  # Run for 50 generations
     
     # Save the winner
     with open('best_genome.pkl', 'wb') as f:
