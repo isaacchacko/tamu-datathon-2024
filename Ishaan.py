@@ -46,7 +46,7 @@ def Ishaan_heatmap(game,
 
     # Determine clustering incentives based on fitness score (only if turn_count is not 1 or 2)
     if turn_count != 1 and turn_count != 2:
-        ally_incentive, enemy_incentive = (1, 3) if lastFitness < 10 else (3, 1)
+        ally_incentive, enemy_incentive = (1, 3) if lastFitness < 13 else (3, 1)
     else:
         ally_incentive, enemy_incentive = 0, 0  # Skip clustering incentive for early turns
 
@@ -89,6 +89,57 @@ def Ishaan_heatmap(game,
                 elif board[y][x] == opponent_player and board[gap_y][gap_x] == opponent_player and board[first_y][first_x] == EMPTY:
                     # Add +4 to the gap cell for two enemy pieces with a gap
                     output[first_y][first_x] += 4
+    
+    for y in range(BOARD_SIZE):
+        for x in range(BOARD_SIZE):
+            # Check for lines of two adjacent pieces in each of the 8 directions
+            for dy, dx in directions:
+                next_y, next_x = (y + dy) % BOARD_SIZE, (x + dx) % BOARD_SIZE
+
+                # Check if there is a line of two adjacent pieces
+                if board[y][x] == current_player and board[next_y][next_x] == current_player:
+                    # Add +10 to extend the ally line in both directions
+                    extend_y1, extend_x1 = (y - dy) % BOARD_SIZE, (x - dx) % BOARD_SIZE
+                    extend_y2, extend_x2 = (next_y + dy) % BOARD_SIZE, (next_x + dx) % BOARD_SIZE
+                    if board[extend_y1][extend_x1] == EMPTY:
+                        output[extend_y1][extend_x1] += 10
+                    if board[extend_y2][extend_x2] == EMPTY:
+                        output[extend_y2][extend_x2] += 10
+
+                elif board[y][x] == opponent_player and board[next_y][next_x] == opponent_player:
+                    # Apply +3 to cells perpendicular to the enemy line
+                    perpendicular_moves = [(dy, -dx), (-dy, dx)]  # Perpendicular directions
+                    for pdy, pdx in perpendicular_moves:
+                        perp_y1, perp_x1 = (y + pdy) % BOARD_SIZE, (x + pdx) % BOARD_SIZE
+                        perp_y2, perp_x2 = (next_y + pdy) % BOARD_SIZE, (next_x + pdx) % BOARD_SIZE
+                        if board[perp_y1][perp_x1] == EMPTY:
+                            output[perp_y1][perp_x1] += 3
+                        if board[perp_y2][perp_x2] == EMPTY:
+                            output[perp_y2][perp_x2] += 3
+    # Apply additional weights based on lastFitness and pairs in rows, columns, or diagonals
+    for y in range(BOARD_SIZE):
+        for x in range(BOARD_SIZE):
+            if board[y][x] == EMPTY:
+                continue  # Only look at occupied cells
+
+            # Determine piece type and incentives based on lastFitness
+            if lastFitness >= 13:
+                ally_bonus, enemy_bonus = (3, 1)
+            else:
+                ally_bonus, enemy_bonus = (1, 3)
+
+            # Check for rows, columns, and diagonals
+            for dy, dx in directions[:4]:  # Limit to row/column/diagonal (avoid checking both directions redundantly)
+                adj_y1, adj_x1 = (y + dy) % BOARD_SIZE, (x + dx) % BOARD_SIZE
+                adj_y2, adj_x2 = (y - dy) % BOARD_SIZE, (x - dx) % BOARD_SIZE
+
+                if board[y][x] == current_player:
+                    if board[adj_y1][adj_x1] == current_player or board[adj_y2][adj_x2] == current_player:
+                        output[y][x] += ally_bonus  # Add to the entire row/column/diagonal
+
+                elif board[y][x] == opponent_player:
+                    if board[adj_y1][adj_x1] == opponent_player or board[adj_y2][adj_x2] == opponent_player:
+                        output[y][x] += enemy_bonus  # Add to the entire row/column/diagonal
 
     return output
 
