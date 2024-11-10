@@ -24,12 +24,20 @@ class NEATAgent:
 
     def play_game(self, net):
         game = Game()
+        moves = 0
         while not game.is_terminal():
             board_state = self.get_board_state(game)
             output = net.activate(board_state)
             move = self.interpret_output(output, game)
             game.make_move(move)
-        return game.p1_pieces - game.p2_pieces  # Simple fitness function
+            moves += 1
+        
+        if game.current_player == 1:
+            score = game.p1_pieces - game.p2_pieces
+        else:
+            score = game.p2_pieces - game.p1_pieces
+        
+        return score + (1 / moves)  # Reward shorter games
 
     def get_board_state(self, game):
         current_player = PLAYER1 if game.current_player == 1 else PLAYER2
@@ -73,7 +81,7 @@ class NEATAgent:
     def get_possible_moves(self, game):
         moves = []
         current_player = PLAYER1 if game.current_player == 1 else PLAYER2
-        if game.p1_pieces < NUM_PIECES or game.p2_pieces < NUM_PIECES:
+        if (current_player == PLAYER1 and game.p1_pieces < NUM_PIECES) or (current_player == PLAYER2 and game.p2_pieces < NUM_PIECES):
             for r in range(BOARD_SIZE):
                 for c in range(BOARD_SIZE):
                     if game.board[r][c] == EMPTY:
@@ -87,3 +95,34 @@ class NEATAgent:
                                 if game.board[r1][c1] == EMPTY:
                                     moves.append((r0, c0, r1, c1))
         return moves
+    
+    def evaluate_board(self, game):
+        current_player = PLAYER1 if game.current_player == 1 else PLAYER2
+        opponent = PLAYER2 if current_player == PLAYER1 else PLAYER1
+        
+        player_pieces = sum(row.count(current_player) for row in game.board)
+        opponent_pieces = sum(row.count(opponent) for row in game.board)
+        
+        player_clusters = self.count_clusters(game, current_player)
+        opponent_clusters = self.count_clusters(game, opponent)
+        
+        return (player_pieces - opponent_pieces) + (player_clusters - opponent_clusters)
+
+    def count_clusters(self, game, player):
+        visited = set()
+        clusters = 0
+        for r in range(BOARD_SIZE):
+            for c in range(BOARD_SIZE):
+                if game.board[r][c] == player and (r, c) not in visited:
+                    self.dfs(game, r, c, player, visited)
+                    clusters += 1
+        return clusters
+
+    def dfs(self, game, r, c, player, visited):
+        if (r, c) in visited or game.board[r][c] != player:
+            return
+        visited.add((r, c))
+        for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+            nr, nc = _torus((r + dr, c + dc))
+            self.dfs(game, nr, nc, player, visited)
+    

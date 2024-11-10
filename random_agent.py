@@ -37,3 +37,28 @@ class RandomAgent:
         """Returns a random valid move."""
         possible_moves = self.get_possible_moves(game)
         return random.choice(possible_moves)
+    
+    def get_best_move(self, game):
+        if self.best_genome is None:
+            return self.get_random_move(game)
+        net = neat.nn.FeedForwardNetwork.create(self.best_genome, self.config)
+        board_state = self.get_board_state(game)
+        output = net.activate(board_state)
+        move = self.interpret_output(output, game)
+        
+        # Simple opponent modeling
+        opponent_move = self.predict_opponent_move(game)
+        if self.is_better_move(game, move, opponent_move):
+            return move
+        else:
+            return self.get_random_move(game)
+
+    def predict_opponent_move(self, game):
+        # Implement a simple prediction of the opponent's next move
+        # This could be based on their previous moves or a heuristic
+        pass
+
+    def is_better_move(self, game, our_move, opponent_move):
+        # Implement logic to compare our move with the predicted opponent move
+        # Return True if our move is better, False otherwise
+        pass

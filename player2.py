@@ -11,6 +11,8 @@ app = Flask(__name__)
 best_agent = None
 agent = None
 
+agent.train(generations=100)  # Increase from 50 to 100 or more
+
 @app.route('/start', methods=['POST'])
 def start_game():
     """
