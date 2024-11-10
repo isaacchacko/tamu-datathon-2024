@@ -387,7 +387,7 @@ def get_fitness(game,
                                             current_player, current_player * -1)
     fitness += evaluate_opponent_cluster_disruption(board, current_player * -1)
     fitness += evaluate_potential_win_pathways(board, current_player)
-    fitness += get_best_move(board, current_player)
+    fitness += get_best_move(board, current_player)[1]
 
     return fitness
 
