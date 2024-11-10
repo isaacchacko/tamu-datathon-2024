@@ -22,15 +22,20 @@ class NEATAgent:
         self.save_genome()
 
     def save_genome(self):
-        with open(self.genome_file, 'wb') as f:
+        version = len([f for f in os.listdir() if f.startswith('best_genome')]) + 1
+        genome_file = f'best_genome_v{version}.pkl'
+        with open(genome_file, 'wb') as f:
             pickle.dump(self.best_genome, f)
-        print(f"Best genome saved to {self.genome_file}")
+        print(f"Best genome saved to {genome_file}")
 
-    def load_genome(self):
-        if os.path.exists(self.genome_file):
-            with open(self.genome_file, 'rb') as f:
+
+    def load_best_genome(self):
+        genome_files = [f for f in os.listdir() if f.startswith('best_genome')]
+        if genome_files:
+            latest_genome = max(genome_files, key=os.path.getctime)  # Load most recent genome
+            with open(latest_genome, 'rb') as f:
                 self.best_genome = pickle.load(f)
-            print(f"Best genome loaded from {self.genome_file}")
+            print(f"Best genome loaded from {latest_genome}")
             return True
         return False
 
@@ -59,9 +64,34 @@ class NEATAgent:
         return game.p1_pieces == 0 or game.p2_pieces == 0 or game.turn_count >= 32
 
     def calculate_fitness(self, game, moves):
-        # Implement a more sophisticated fitness function
-        score = game.p1_pieces - game.p2_pieces
-        return score + (1 / moves)  # Reward shorter games
+        """
+        Calculate the fitness score based on game outcome and board control.
+        """
+        # Initial fitness based on win/loss/draw
+        winner = game.check_winner()
+        if winner == PLAYER1:
+            return 1000  # Large reward for winning
+        elif winner == PLAYER2:
+            return -1000  # Large penalty for losing
+        elif game.turn_count >= 32:
+            return 10  # Small reward for draw (if applicable)
+
+        # Fitness based on board control and move efficiency
+        fitness = 0
+
+        # Board control - center and corner control
+        fitness += self.evaluate_board_control(game)
+
+        # Piece pushing - reward pushing opponent's pieces into bad positions
+        fitness += self.evaluate_piece_pushing(game)
+
+        # Move efficiency - reward forming two-in-a-row or blocking opponent's rows
+        fitness += self.evaluate_move_efficiency(game)
+
+        # Shorter games are better, so we add a small bonus for faster wins
+        fitness += 1 / moves if moves > 0 else 0
+
+        return fitness
 
     def get_board_state(self, game):
         current_player = PLAYER1 if game.current_player == 1 else PLAYER2
@@ -128,6 +158,123 @@ class NEATAgent:
                                     moves.append((r0, c0, r1, c1))
         return moves
     
+    def evaluate_board_control(self, game):
+        """
+        Reward controlling key areas of the board like center and corners.
+        """
+        center_positions = [(3, 3), (3, 4), (4, 3), (4, 4)]
+        corner_positions = [(0, 0), (0, 7), (7, 0), (7, 7)]
+        
+        fitness = 0
+        
+        for r in range(BOARD_SIZE):
+            for c in range(BOARD_SIZE):
+                if game.board[r][c] == PLAYER1:
+                    if (r, c) in center_positions:
+                        fitness += 5  # Higher reward for controlling center
+                    elif (r, c) in corner_positions:
+                        fitness += 3  # Slightly lower reward for controlling corners
+
+                elif game.board[r][c] == PLAYER2:
+                    if (r, c) in center_positions:
+                        fitness -= 5  # Penalize if opponent controls center
+                    elif (r, c) in corner_positions:
+                        fitness -= 3  # Penalize if opponent controls corners
+
+        return fitness
+    
+    def evaluate_piece_pushing(self, game):
+        """
+        Reward pushing opponent's pieces into unfavorable positions.
+        Penalize if your own pieces are pushed.
+        """
+        push_reward = 0
+        
+        # Check neighboring tiles and see if any pushes occurred
+        for r in range(BOARD_SIZE):
+            for c in range(BOARD_SIZE):
+                if game.board[r][c] == PLAYER1:
+                    push_reward += self.check_push_effect(game, r, c)
+        
+        return push_reward
+    
+    def check_push_effect(self, game, r0, c0):
+        """
+        Evaluate whether pushing occurred around a given tile.
+        """
+        dirs = [(-1,-1), (-1,0), (-1,+1), (0,+1), (+1,+1), (+1,0), (+1,-1), (0,-1)]
+        
+        push_score = 0
+        
+        for dr, dc in dirs:
+            r1, c1 = _torus(r0 + dr, c0 + dc)
+            if game.board[r1][c1] == PLAYER2:
+                r2, c2 = _torus(r1 + dr, c1 + dc)
+                if game.board[r2][c2] == EMPTY:
+                    push_score += 10   # Reward pushing an opponent piece into an empty spot
+                    
+            elif game.board[r1][c1] == PLAYER1:
+                r2, c2 = _torus(r1 + dr, c1 + dc)
+                if game.board[r2][c2] != EMPTY:
+                    push_score -= 5    # Penalize if our own piece is pushed
+
+        return push_score
+    
+    def evaluate_move_efficiency(self, game):
+        """
+        Reward efficient moves that form two-in-a-row or block opponent's rows.
+        Penalize inefficient/random moves.
+        """
+        efficiency_score = 0
+        
+        # Check rows/columns/diagonals for two-in-a-row formations
+        efficiency_score += self.count_two_in_a_row(game.board, PLAYER1) * 15
+        efficiency_score -= self.count_two_in_a_row(game.board, PLAYER2) * 15
+        
+        return efficiency_score
+    
+    def count_two_in_a_row(self, board, player):
+        """
+        Count occurrences of two aligned pieces on rows/columns/diagonals.
+        """
+        
+        count = 0
+        
+        # Check rows and columns
+        for i in range(BOARD_SIZE):
+            count += self.check_line(board[i], player)   # Rows
+            count += self.check_line([board[j][i] for j in range(BOARD_SIZE)], player)   # Columns
+        
+        # Check diagonals
+        count += self.check_diagonal(board, player)
+        
+        return count
+    
+    def check_line(self, line, player):
+        """
+       Check horizontal/vertical lines for two-in-a-row patterns.
+       """
+        cnt = sum(1 for i in range(len(line)-2) if line[i:i+2].count(player) == 2)
+        return cnt
+    
+    def check_diagonal(self, board, player):
+        """
+        Check both main diagonals and anti-diagonals for two-in-a-row patterns.
+        """
+        count = 0
+
+        # Check main diagonals (top-left to bottom-right)
+        for i in range(BOARD_SIZE - 2):  # We check up to BOARD_SIZE - 2 because we are looking for 2-in-a-row
+            if board[i][i] == player and board[i + 1][i + 1] == player:
+                count += 1
+
+        # Check anti-diagonals (top-right to bottom-left)
+        for i in range(BOARD_SIZE - 2):
+            if board[i][BOARD_SIZE - 1 - i] == player and board[i + 1][BOARD_SIZE - 2 - i] == player:
+                count += 1
+
+        return count
+    
     def evaluate_board(self, game):
         current_player = PLAYER1 if game.current_player == 1 else PLAYER2
         opponent = PLAYER2 if current_player == PLAYER1 else PLAYER1
@@ -181,3 +328,8 @@ class NEATAgent:
             return move
         else:
             return self.get_random_move(game)
+        
+'''
+
+
+'''
