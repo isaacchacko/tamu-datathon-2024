@@ -1,11 +1,6 @@
 import neat
-import numpy as np
 import random
-import pickle
-import os
-
-BOARD_SIZE = 8
-NUM_PIECES = 8
+from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
 
 class NEATAgent:
     def __init__(self, config_file):
@@ -14,162 +9,150 @@ class NEATAgent:
                                   config_file)
         self.population = neat.Population(self.config)
         self.best_genome = None
-        self.genome_file = 'best_genome.pkl'
 
     def train(self, generations=50):
         self.population.add_reporter(neat.StdOutReporter(True))
         stats = neat.StatisticsReporter()
         self.population.add_reporter(stats)
+
         self.best_genome = self.population.run(self.evaluate_genomes, generations)
-        self.save_genome()
 
     def evaluate_genomes(self, genomes, config):
         for genome_id, genome in genomes:
             net = neat.nn.FeedForwardNetwork.create(genome, config)
-            genome.fitness = self.evaluate_fitness(net)
+            genome.fitness = self.play_game(net)
+            # Additional evaluations can be added here
 
-    def evaluate_fitness(self, net):
-        total_score = 0
-        for _ in range(5):  # Play 5 games and average the score
-            game = PushBattleGame()
-            score = self.play_game(net, game)
-            total_score += score
-        return total_score / 5
-
-    def play_game(self, net, game):
-        while not game.is_game_over():
-            move = self.get_move(net, game)
+    def play_game(self, net):
+        game = Game()
+        max_moves = 100  # Set a maximum number of moves to prevent infinite loops
+        moves = 0
+        while moves < max_moves and not self.is_game_over(game):
+            board_state = self.get_board_state(game)
+            output = net.activate(board_state)
+            move = self.interpret_output(output, game)
             game.make_move(move)
-            if game.check_win():
-                return 1 if game.current_player == 1 else -1
-        return 0  # Draw
+            moves += 1
+        
+        return self.calculate_fitness(game, moves)
 
-    def get_move(self, net, game):
+    def is_game_over(self, game):
+        # Implement game-over conditions here
+        # For example:
+        return game.p1_pieces == 0 or game.p2_pieces == 0 or game.turn_count >= 32
+
+    def calculate_fitness(self, game, moves):
+        # Implement a more sophisticated fitness function
+        score = game.p1_pieces - game.p2_pieces
+        return score + (1 / moves)  # Reward shorter games
+
+    def get_board_state(self, game):
+        current_player = PLAYER1 if game.current_player == 1 else PLAYER2
+        opponent = PLAYER2 if current_player == PLAYER1 else PLAYER1
+        return [1 if item == current_player else (-1 if item == opponent else 0) for sublist in game.board for item in sublist]
+
+    def interpret_output(self, output, game):
+        current_player = PLAYER1 if game.current_player == 1 else PLAYER2
+        if (current_player == PLAYER1 and game.p1_pieces < NUM_PIECES) or (current_player == PLAYER2 and game.p2_pieces < NUM_PIECES):
+            # Placement phase
+            move_index = output.index(max(output))
+            return (move_index // BOARD_SIZE, move_index % BOARD_SIZE)
+        else:
+            # Movement phase
+            from_index = output.index(max(output[:BOARD_SIZE**2]))
+            to_index = BOARD_SIZE**2 + output[BOARD_SIZE**2:].index(max(output[BOARD_SIZE**2:]))
+            
+            from_row, from_col = from_index // BOARD_SIZE, from_index % BOARD_SIZE
+            to_row, to_col = (to_index - BOARD_SIZE**2) // BOARD_SIZE, (to_index - BOARD_SIZE**2) % BOARD_SIZE
+            
+            # Ensure the 'from' position contains the player's piece
+            if game.board[from_row][from_col] != current_player:
+                # If not, choose a random valid move
+                return self.get_random_move(game)
+            
+            return (from_row, from_col, to_row, to_col)
+    
+    def get_best_move(self, game):
+        if self.best_genome is None:
+            return self.get_random_move(game)
+        
+        net = neat.nn.FeedForwardNetwork.create(self.best_genome, self.config)
         board_state = self.get_board_state(game)
         output = net.activate(board_state)
         return self.interpret_output(output, game)
 
-    def get_board_state(self, game):
-        state = []
-        for row in game.board:
-            for cell in row:
-                if cell == 1:
-                    state.append(1)
-                elif cell == 2:
-                    state.append(-1)
-                else:
-                    state.append(0)
-        state.append(1 if game.current_player == 1 else -1)
-        state.append(game.pieces_placed[0] / NUM_PIECES)
-        state.append(game.pieces_placed[1] / NUM_PIECES)
-        return state
+    def get_random_move(self, game):
+        possible_moves = self.get_possible_moves(game)
+        return random.choice(possible_moves)
 
-    def interpret_output(self, output, game):
-        if game.pieces_placed[game.current_player - 1] < NUM_PIECES:
-            # Placement move
-            move_index = np.argmax(output[:BOARD_SIZE**2])
-            return (move_index // BOARD_SIZE, move_index % BOARD_SIZE)
+    def get_possible_moves(self, game):
+        moves = []
+        current_player = PLAYER1 if game.current_player == 1 else PLAYER2
+        if (current_player == PLAYER1 and game.p1_pieces < NUM_PIECES) or (current_player == PLAYER2 and game.p2_pieces < NUM_PIECES):
+            for r in range(BOARD_SIZE):
+                for c in range(BOARD_SIZE):
+                    if game.board[r][c] == EMPTY:
+                        moves.append((r, c))
         else:
-            # Movement move
-            from_index = np.argmax(output[:BOARD_SIZE**2])
-            to_index = np.argmax(output[BOARD_SIZE**2:]) + BOARD_SIZE**2
-            from_pos = (from_index // BOARD_SIZE, from_index % BOARD_SIZE)
-            to_pos = ((to_index - BOARD_SIZE**2) // BOARD_SIZE, (to_index - BOARD_SIZE**2) % BOARD_SIZE)
-            return (*from_pos, *to_pos)
+            for r0 in range(BOARD_SIZE):
+                for c0 in range(BOARD_SIZE):
+                    if game.board[r0][c0] == current_player:
+                        for r1 in range(BOARD_SIZE):
+                            for c1 in range(BOARD_SIZE):
+                                if game.board[r1][c1] == EMPTY:
+                                    moves.append((r0, c0, r1, c1))
+        return moves
+    
+    def evaluate_board(self, game):
+        current_player = PLAYER1 if game.current_player == 1 else PLAYER2
+        opponent = PLAYER2 if current_player == PLAYER1 else PLAYER1
+        
+        player_pieces = sum(row.count(current_player) for row in game.board)
+        opponent_pieces = sum(row.count(opponent) for row in game.board)
+        
+        player_clusters = self.count_clusters(game, current_player)
+        opponent_clusters = self.count_clusters(game, opponent)
+        
+        return (player_pieces - opponent_pieces) + (player_clusters - opponent_clusters)
 
-    def save_genome(self):
-        with open(self.genome_file, 'wb') as f:
-            pickle.dump(self.best_genome, f)
-        print(f"Best genome saved to {self.genome_file}")
+    def count_clusters(self, game, player):
+        visited = set()
+        clusters = 0
+        for r in range(BOARD_SIZE):
+            for c in range(BOARD_SIZE):
+                if game.board[r][c] == player and (r, c) not in visited:
+                    self.dfs(game, r, c, player, visited)
+                    clusters += 1
+        return clusters
 
-    def load_genome(self):
-        if os.path.exists(self.genome_file):
-            with open(self.genome_file, 'rb') as f:
-                self.best_genome = pickle.load(f)
-            print(f"Loaded existing genome from {self.genome_file}")
-            return True
-        return False
+    def dfs(self, game, r, c, player, visited):
+        if (r, c) in visited or game.board[r][c] != player:
+            return
+        visited.add((r, c))
+        for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+            nr, nc = _torus((r + dr, c + dc))
+            self.dfs(game, nr, nc, player, visited)
+            
+    def predict_opponent_move(self, game):
+        # Implement a simple prediction of the opponent's next move
+        # This could be based on their previous moves or a heuristic
+        pass
 
+    def is_better_move(self, game, our_move, opponent_move):
+        # Implement logic to compare our move with the predicted opponent move
+        # Return True if our move is better, False otherwise
+        pass
+    
     def get_best_move(self, game):
         if self.best_genome is None:
             return self.get_random_move(game)
         net = neat.nn.FeedForwardNetwork.create(self.best_genome, self.config)
-        return self.get_move(net, game)
-
-    def get_random_move(self, game):
-        if game.pieces_placed[game.current_player - 1] < NUM_PIECES:
-            # Placement move
-            empty_spots = [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE) if game.board[r][c] == 0]
-            return random.choice(empty_spots)
+        board_state = self.get_board_state(game)
+        output = net.activate(board_state)
+        move = self.interpret_output(output, game)
+                # Simple opponent modeling
+        opponent_move = self.predict_opponent_move(game)
+        if self.is_better_move(game, move, opponent_move):
+            return move
         else:
-            # Movement move
-            player_pieces = [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE) if game.board[r][c] == game.current_player]
-            empty_spots = [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE) if game.board[r][c] == 0]
-            from_pos = random.choice(player_pieces)
-            to_pos = random.choice(empty_spots)
-            return (*from_pos, *to_pos)
-
-class PushBattleGame:
-    def __init__(self):
-        self.board = np.zeros((BOARD_SIZE, BOARD_SIZE), dtype=int)
-        self.current_player = 1
-        self.pieces_placed = [0, 0]
-
-    def make_move(self, move):
-        if len(move) == 2:
-            # Placement move
-            r, c = move
-            if self.board[r][c] == 0:
-                self.board[r][c] = self.current_player
-                self.pieces_placed[self.current_player - 1] += 1
-                self.push_adjacent(r, c)
-                self.current_player = 3 - self.current_player  # Switch player
-                return True
-        elif len(move) == 4:
-            # Movement move
-            r0, c0, r1, c1 = move
-            if self.board[r0][c0] == self.current_player and self.board[r1][c1] == 0:
-                self.board[r0][c0] = 0
-                self.board[r1][c1] = self.current_player
-                self.push_adjacent(r1, c1)
-                self.current_player = 3 - self.current_player  # Switch player
-                return True
-        return False
-
-    def push_adjacent(self, r, c):
-        for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
-            self.push_piece(r + dr, c + dc, dr, dc)
-
-    def push_piece(self, r, c, dr, dc):
-        if 0 <= r < BOARD_SIZE and 0 <= c < BOARD_SIZE and self.board[r][c] != 0:
-            next_r, next_c = (r + dr) % BOARD_SIZE, (c + dc) % BOARD_SIZE
-            if self.board[next_r][next_c] == 0:
-                self.board[next_r][next_c] = self.board[r][c]
-                self.board[r][c] = 0
-            else:
-                self.push_piece(next_r, next_c, dr, dc)
-
-    def check_win(self):
-        for player in [1, 2]:
-            for r in range(BOARD_SIZE):
-                for c in range(BOARD_SIZE):
-                    if self.check_three_in_a_row(r, c, player):
-                        return True
-        return False
-
-    def check_three_in_a_row(self, r, c, player):
-        directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
-        for dr, dc in directions:
-            count = 0
-            for i in range(3):
-                nr, nc = (r + i*dr) % BOARD_SIZE, (c + i*dc) % BOARD_SIZE
-                if self.board[nr][nc] == player:
-                    count += 1
-                else:
-                    break
-            if count == 3:
-                return True
-        return False
-
-    def is_game_over(self):
-        return self.check_win() or all(pieces == NUM_PIECES for pieces in self.pieces_placed)
+            return self.get_random_move(game)
