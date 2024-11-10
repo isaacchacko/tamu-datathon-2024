@@ -483,8 +483,8 @@ def RadialConvolution(game,
 
     # useful variables
     current_player = game.current_player
-    p1_tiles = game.p1_tiles
-    p2_tiles = game.p2_tiles
+    p1_tiles = game.p1_pieces
+    p2_tiles = game.p2_pieces
 
     output = np.zeros((8, 8))
 
