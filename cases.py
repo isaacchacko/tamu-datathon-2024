@@ -406,8 +406,8 @@ def Ishaan_heatmap(game,
     # useful variables
     current_player = game.current_player
     opponent_player = -current_player  # Opponent's pieces
-    p1_tiles = game.p1_tiles
-    p2_tiles = game.p2_tiles
+    p1_tiles = game.p1_pieces
+    p2_tiles = game.p2_pieces
 
     # Initialize an 8x8 output array for the heatmap with all cells starting at zero
     output = np.zeros((8, 8))
