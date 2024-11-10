@@ -35,7 +35,7 @@ def start_game():
     ##### MODIFY BELOW #####
 
     agent = QLearningAgent(PLAYER1)
-    agent.load_model('model1.h5')
+    agent.load_model('model_episode_2000.h5')
 
     ###################
     
