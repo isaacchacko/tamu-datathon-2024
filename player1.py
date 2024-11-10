@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify
 from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
+from q_learning_agent import QLearningAgent
+import numpy as np
 
 # Import This
-from q_learning_agent import QLearningAgent
 from PushBattle import PLAYER1
 
 app = Flask(__name__)
