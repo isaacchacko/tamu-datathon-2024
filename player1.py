@@ -77,7 +77,7 @@ def make_move():
     # Move logic should go here
     # This is where you'd call your minimax/MCTS/neural network/etc
 
-    move = agent.get_best_move(game)
+    move = agent.get_best_move(game, board, turn_count, attempt_number)
 
     ###################
     
