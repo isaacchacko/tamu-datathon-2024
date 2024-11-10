@@ -2,6 +2,11 @@ from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _t
 import cases
 from cases import get_best_move_and_fitness, run_cases
 from random_agent import RandomAgent
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class HisAgent:
@@ -9,7 +14,7 @@ class HisAgent:
         self.player = player
         self.lastFitness = 0
         self.random = RandomAgent()
-    # given the game state, gets all of the possible moves
+        self.random_move_count = 0
 
     def get_best_move(self, game, board, turn_count, attempt_number):
         result = get_best_move_and_fitness(
@@ -17,13 +22,20 @@ class HisAgent:
 
         if result == False:
             self.lastFitness = 1
+            self.random_move_count += 1
+            logging.warning(f"Running random case. Random move count: {
+                            self.random_move_count}")
             return self.random.get_best_move(game)
 
         else:
             move, self.lastFitness = result
-            if type(move) != list or type(move) != tuple or len(move) != 4 or len(move) != 2:
-
+            if not isinstance(move, (list, tuple)) or len(move) not in [2, 4]:
                 self.lastFitness = 1
+                self.random_move_count += 1
+                logging.warning(f"Invalid move format. Running random case. Random move count: {
+                                self.random_move_count}")
                 return self.random.get_best_move(game)
 
+            logging.info(f"Using calculated move: {
+                         move} with fitness: {self.lastFitness}")
             return move
