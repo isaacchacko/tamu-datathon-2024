@@ -51,17 +51,28 @@ def get_initial_fitness(game,
                         lastFitness):
 
     # useful variables
+    board = game.board
+    p1_pieces = game.p1_pieces
+    p2_pieces = game.p2_pieces
     current_player = game.current_player
-    p1_tiles = game.p1_tiles
-    p2_tiles = game.p2_tiles
+    if current_player == 1:
+        current_player_pieces = p1_pieces
+    else:
+        current_player_pieces = p2_pieces
+    turn_count += 1
 
     fitness = 0
-    output = np.zeros((8, 8))
+    # add your fitness check functions here
 
     # add your code here
+    fitness += evaluate_piece_count(current_player_pieces)
+    fitness += evaluate_defensive_formation(board, current_player)
+    fitness += evaluate_distance_to_victory(board, current_player, current_player * -1)
+    fitness += evaluate_opponent_cluster_disruption(board, current_player * -1)
+    fitness +=  evaluate_potential_win_pathways(board, current_player)
+    fitness += get_best_move(board, current_player)
 
-    return fitness, output
-
+    return fitness
 
 def get_hot(heatmap):
     # Ensure the input is a NumPy array
@@ -152,6 +163,217 @@ def get_possible_heatmap_moves(game, coldest_cell, target_cells):
 
     return possible_moves
 
+###### FITNESS STUFF ######
+@evaluate_runtime
+def evaluate_piece_count(current_player_pieces):
+    return current_player_pieces
+
+@evaluate_runtime
+def evaluate_defensive_formation(board, player):
+    defensive_score = 0
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1), (-1, 0), (0, -1), (-1, -1), (-1, 1)]
+
+    for r in range(8):
+        for c in range(8):
+            if board[r][c] == player:
+                backed_up = 0
+                for dr, dc in directions:
+                    nr = (r + dr) % 8  # Wrap around rows
+                    nc = (c + dc) % 8  # Wrap around columns
+                    if board[nr][nc] == player:
+                        backed_up += 1
+                
+                if backed_up >= 2:
+                    defensive_score += 3.0
+                if backed_up >= 3:
+                    defensive_score += 2.0  # Additional bonus for extra support
+    
+    return defensive_score * 2.5  # Applying the weight
+
+@evaluate_runtime
+def evaluate_distance_to_victory(board, player, opponent):
+    victory_score = 0
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
+    size = len(board)  # Assuming the board is square (8x8)
+    
+    def check_line(line, player):
+        player_count = line.count(player)
+        empty_count = line.count(None)
+        if player_count + empty_count == 3:
+            if player_count == 2:
+                return 10  # One move away from victory
+            elif player_count == 1:
+                return 5   # Two moves away from victory
+            elif player_count == 0:
+                return 1   # Three moves away (potential future line)
+        return 0
+
+    for r in range(size):
+        for c in range(size):
+            for dr, dc in directions:
+                line = []
+                for i in range(3):
+                    nr = (r + i*dr) % size  # Wrap around rows
+                    nc = (c + i*dc) % size  # Wrap around columns
+                    line.append(board[nr][nc])
+                if len(line) == 3:
+                    victory_score += check_line(line, player)
+                    victory_score -= check_line(line, opponent) * 0.8  # Slightly less weight for opponent's threats
+
+    return victory_score
+
+@evaluate_runtime
+def evaluate_opponent_cluster_disruption(board, opponent):
+    disruption_score = 0
+    size = len(board)
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1), (0, -1), (-1, 0), (-1, -1), (-1, 1)]
+
+    def is_opponent(r, c):
+        return board[r][c] == opponent
+
+    def get_cluster_size(r, c):
+        visited = set()
+        stack = [(r, c)]
+        cluster_size = 0
+        while stack:
+            current_r, current_c = stack.pop()
+            if (current_r, current_c) not in visited:
+                visited.add((current_r, current_c))
+                cluster_size += 1
+                for dr, dc in directions:
+                    nr = (current_r + dr) % size
+                    nc = (current_c + dc) % size
+                    if is_opponent(nr, nc) and (nr, nc) not in visited:
+                        stack.append((nr, nc))
+        return cluster_size
+
+    # Explore the board for potential moves that disrupt opponent clusters
+    for r in range(size):
+        for c in range(size):
+            if board[r][c] is None:  # Empty cell where we can potentially move
+                for dr, dc in directions:
+                    nr = (r + dr) % size
+                    nc = (c + dc) % size
+                    if is_opponent(nr, nc):
+                        original_cluster_size = get_cluster_size(nr, nc)
+                        if original_cluster_size >= 2:
+                            # Simulate pushing the opponent piece
+                            push_r = (nr + dr) % size
+                            push_c = (nc + dc) % size
+                            if board[push_r][push_c] is None:  # Can push
+                                # Temporarily move the piece
+                                board[nr][nc], board[push_r][push_c] = None, opponent
+                                new_cluster_size = get_cluster_size(push_r, push_c)
+                                # Revert the move
+                                board[nr][nc], board[push_r][push_c] = opponent, None
+                                
+                                if new_cluster_size < original_cluster_size:
+                                    disruption_score += 4  # Apply weight for disrupting clusters
+
+    return disruption_score
+
+@evaluate_runtime
+def evaluate_potential_win_pathways(board, player):
+    pathway_score = 0
+    size = len(board)  # Assuming a square board
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]  # Horizontal, vertical, diagonal
+
+    def is_player_piece(r, c):
+        return board[r][c] == player
+
+    def is_empty(r, c):
+        return board[r][c] is None
+
+    # Check all empty spaces for potential win pathways
+    for r in range(size):
+        for c in range(size):
+            if is_empty(r, c):  # Only check empty cells
+                for dr, dc in directions:
+                    count = 0
+                    empty_count = 0
+                    # Check in both directions
+                    for i in range(-2, 3):  # Check 2 spaces before and after
+                        if i == 0:
+                            continue  # Skip the current cell
+                        nr = (r + i * dr) % size  # Wrap around rows
+                        nc = (c + i * dc) % size  # Wrap around columns
+                        if is_player_piece(nr, nc):
+                            count += 1
+                        elif is_empty(nr, nc):
+                            empty_count += 1
+                        else:
+                            break  # Blocked by opponent's piece
+
+                    # Evaluate the potential pathway
+                    if count + empty_count >= 2:
+                        if count == 2:
+                            pathway_score += 3  # Higher score for two pieces already aligned
+                        elif count == 1:
+                            pathway_score += 2  # Standard score for one piece in the pathway
+                        else:
+                            pathway_score += 1  # Small score for potential future alignment
+
+    return pathway_score
+
+def calculate_board_score(board, player):
+    EMPTY = 0  # Assume EMPTY is represented as 0
+    enemy = 3 - player  # Assuming players are represented as 1 and 2
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]  # horizontal, vertical, two diagonals
+    fitness = 0
+
+    def check_line(y, x, dy, dx, length):
+        line = [board[(y + i*dy) % len(board)][(x + i*dx) % len(board)] for i in range(length)]
+        return line
+
+    for y in range(len(board)):
+        for x in range(len(board)):
+            if board[y][x] == EMPTY:
+                for dy, dx in directions:
+                    # Check for ally conditions
+                    line = check_line(y, x, dy, dx, 5)
+                    if line[2] == EMPTY:
+                        if line[1] == player and line[3] == player:
+                            if line[0] == EMPTY and line[4] == EMPTY:
+                                fitness += 10  # Condition 1: Two ally tiles with open spaces on both sides
+                            else:
+                                fitness += 7   # Condition 5: Two ally tiles with a space between
+                    elif line.count(player) >= 2 and line[0] == EMPTY and line[4] == EMPTY:
+                        fitness += 10  # Condition 1: Two or more ally tiles with open spaces on both sides
+
+                    # Check for enemy conditions
+                    if line.count(enemy) >= 2:
+                        if line[0] == EMPTY and line[4] == EMPTY:
+                            fitness += 10  # Condition 2: Two or more enemy tiles with open spaces
+                        elif line[2] == EMPTY and line[1] == enemy and line[3] == enemy:
+                            fitness = 0  # Condition 3: Two enemy tiles with a space between
+
+                    # Check for 3 in a row
+                    if line[1:4].count(player) == 3:
+                        fitness += 20  # Condition 4: 3 in a row for ally
+
+            elif board[y][x] != EMPTY:
+                fitness = 0  # Condition 6: Space is already occupied
+
+    return fitness
+
+
+@evaluate_runtime
+def get_best_move(board, player):
+    best_score = float('-inf')
+    best_move = None
+
+    for y in range(len(board)):
+        for x in range(len(board)):
+            if board[y][x] == EMPTY:
+                board[y][x] = player
+                score = calculate_board_score(board, player)
+                board[y][x] = EMPTY
+
+                if score > best_score:
+                    best_score = score
+                    best_move = (y, x)
+
+    return best_move, best_score
 
 def get_fitness(game,
                 turn_count,
@@ -168,11 +390,22 @@ def get_fitness(game,
     board = game_copy.board
     p1_pieces = game_copy.p1_pieces
     p2_pieces = game_copy.p2_pieces
-    current_player = game_copy.current_player * -1
+    current_player = game_copy.current_player
+    if current_player == 1:
+        current_player_pieces = p1_pieces
+    else:
+        current_player_pieces = p2_pieces
     turn_count += 1
 
     fitness = 0
     # add your fitness check functions here
+    fitness += evaluate_piece_count(current_player_pieces)
+    fitness += evaluate_defensive_formation(board, current_player)
+    fitness += evaluate_distance_to_victory(board, current_player, current_player * -1)
+    fitness += evaluate_opponent_cluster_disruption(board, current_player * -1)
+    fitness +=  evaluate_potential_win_pathways(board, current_player)
+    fitness += get_best_move(board, current_player)
+
 
     return fitness
 
@@ -253,7 +486,7 @@ def run_cases(game,
     combined_heatmap, total_initial_fitness = combine_heatmaps_and_fitness( < insert initial fitness functions here > )
 
     # sum the heatmaps together
-    total_heatmap_array = heatmap_array + combine_heatmap
+    total_heatmap_array = heatmap_array + combined_heatmap
 
     # get the shrinked list of heatmap tiles
     final_heatmap = get_hot(total_heatmap_array)
