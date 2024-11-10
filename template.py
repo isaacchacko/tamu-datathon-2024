@@ -1,7 +1,6 @@
 # test_cases_1.py (repeat this structure for test_cases_2.py, test_cases_3.py, and test_cases_4.py)
-
+from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
 import numpy as np
-from PushBattle import BOARD_SIZE, EMPTY
 import time
 import logging
 
