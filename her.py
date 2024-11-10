@@ -16,8 +16,14 @@ class HisAgent:
             run_cases(game, board, turn_count, attempt_number, self.lastFitness))
 
         if result == False:
-            return self.random.get_best_move(game)
             self.lastFitness = 1
+            return self.random.get_best_move(game)
 
         else:
             move, self.lastFitness = result
+            if type(move) != list or type(move) != tuple or len(move) != 4 or len(move) != 2:
+
+                self.lastFitness = 1
+                return self.random.get_best_move(game)
+
+            return move
