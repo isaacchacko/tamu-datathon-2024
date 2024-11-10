@@ -41,7 +41,7 @@ def start_game():
         agent = NEATAgent(config_path)
         if not agent.load_genome():
             print("No saved genome found. Training a new one...")
-            agent.train(generations=1000)  # Adjust the number of generations as needed
+            agent.train(generations=50)  # Adjust the number of generations as needed
         else:
             print("Loaded existing genome.")
 
