@@ -1,0 +1,2 @@
+# This should have all the libraries that you use
+# HINT: You can generate this file with the command `pip freeze > requirements.txt` (without the backticks)

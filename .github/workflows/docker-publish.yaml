@@ -1,0 +1,92 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REGISTRY_URL: 50.116.18.58:5000
+  SUBMISSION_API: https://submitchallenge-ryd3bo7wyq-uc.a.run.app
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Generate build matrix
+        id: set-matrix
+        run: |
+          python3 -c '
+          import yaml
+          import json
+          import uuid
+          
+          with open("config.yaml") as f:
+              config = yaml.safe_load(f)
+          
+          builds = []
+          for challenge in config["challenges"]:
+              for submission in challenge["submissions"]:
+                  container_id = str(uuid.uuid4())
+                  builds.append({
+                      "folder": submission,
+                      "challenge_name": challenge["name"],
+                      "container_id": container_id,
+                      "email": config["email"]
+                  })
+          
+          matrix = {"include": builds}
+          print("::set-output name=matrix::" + json.dumps(matrix))
+          '
+
+  build-and-push:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJson(needs.prepare.outputs.matrix)}}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure Docker for insecure registry
+        run: |
+          echo "{\"insecure-registries\": [\"$REGISTRY_URL\"]}" | sudo tee /etc/docker/daemon.json
+          sudo systemctl restart docker
+
+      - name: Cache pip packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('${{ matrix.folder }}/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver-opts: |
+            network=host
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.folder }}
+          push: true
+          tags: ${{ env.REGISTRY_URL }}/${{ matrix.container_id }}:latest
+          network: host
+          builder: default
+
+      - name: Notify submission
+        run: |
+          curl -X POST ${{ env.SUBMISSION_API }} \
+            -H "Content-Type: application/json" \
+            -d '{
+              "email": "${{ matrix.email }}",
+              "challengeName": "${{ matrix.challenge_name }}",
+              "submissionName": "${{ matrix.folder }}",
+              "container_id": "${{ matrix.container_id }}"
+            }'
