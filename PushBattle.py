@@ -83,6 +83,19 @@ class Game:
             print("Black has moved all pieces. Must move an existing piece")
             return False
         return 0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE and self.board[row][col] == EMPTY
+    
+    def make_move(self, move):
+        if len(move) == 2:  # Placement phase
+            r, c = move
+            if self.is_valid_placement(r, c):
+                self.place_checker(r, c)
+                return True
+        elif len(move) == 4:  # Movement phase
+            r0, c0, r1, c1 = move
+            if self.is_valid_move(r0, c0, r1, c1):
+                self.move_checker(r0, c0, r1, c1)
+                return True
+        return False
 
     # Checks if the potential MOVEMENT of the piece is valid
     def is_valid_move(self, r0, c0, r1, c1):
