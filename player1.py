@@ -35,11 +35,12 @@ def start_game():
 
     ##### MODIFY BELOW #####
 
-    config_path = os.path.join(os.path.dirname(__file__), 'neat_config.txt')
-    agent = NEATAgent(config_path)
-    agent.train(generations=50)  # Adjust the number of generations as needed
+    global agent
+    if agent is None:
+        config_path = os.path.join(os.path.dirname(__file__), 'neat_config.txt')
+        agent = NEATAgent(config_path)
+        agent.train(generations=1000) 
     
-
     ###################
     
     return jsonify({

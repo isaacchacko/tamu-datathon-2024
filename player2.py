@@ -1,14 +1,13 @@
 from flask import Flask, request, jsonify
 from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
 
+# This simulates player 2 always playing random moves - you may modify to test locally
+
 # Import This
-# from <AGENT FILENAME> import <AGENT CLASSNAME>
 from random_agent import RandomAgent
-from strategic_agent import NEATAgent
-import os
 
 app = Flask(__name__)
-best_agent = None
+
 agent = None
 
 @app.route('/start', methods=['POST'])
@@ -35,10 +34,7 @@ def start_game():
 
     ##### MODIFY BELOW #####
 
-    config_path = os.path.join(os.path.dirname(__file__), 'neat_config.txt')
-    agent = NEATAgent(config_path)
-    agent.train(generations=50)  # Adjust the number of generations as needed
-    
+    agent = RandomAgent()
 
     ###################
     
@@ -113,4 +109,4 @@ def end_game():
     })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5008, debug=True)
+    app.run(host='0.0.0.0', port=5009, debug=True)
