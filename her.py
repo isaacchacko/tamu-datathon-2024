@@ -1,3 +1,4 @@
+import numpy as np
 from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
 import cases
 from cases import get_best_move_and_fitness, run_cases
@@ -36,6 +37,8 @@ class HisAgent:
                                 self.random_move_count}")
                 return self.random.get_best_move(game)
 
+            # Convert NumPy int64 to Python int
+            move = [int(x) for x in move]
             logging.info(f"Using calculated move: {
                          move} with fitness: {self.lastFitness}")
             return move
