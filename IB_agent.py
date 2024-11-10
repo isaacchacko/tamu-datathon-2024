@@ -23,7 +23,7 @@ class TreeNode:
         elif len(move) == 4:  # Movement move
             start_row, start_col, end_row, end_col = move
             next_state.board[end_row][end_col] = next_state.board[start_row][start_col]
-            next_state.board[start_row][start_col] = 0
+            next_state.board[start_row][start_col] = EMPTY
 
         next_state.current_player *= -1
         return next_state
@@ -33,21 +33,18 @@ class TreeNode:
         board = self.game_state.board
         moves = []
 
-        # Determine if pieces should be placed or moved
-        current_player_pieces = self.game_state.p1_pieces if self.game_state.current_player == 1 else self.game_state.p2_pieces
+        current_player_pieces = self.game_state.p1_pieces if self.game_state.current_player == PLAYER1 else self.game_state.p2_pieces
         if current_player_pieces < 8:
-            # Generate placement moves
             for row in range(len(board)):
                 for col in range(len(board[row])):
-                    if board[row][col] == 0:
+                    if board[row][col] == EMPTY:
                         moves.append((row, col))
         else:
-            # Generate movement moves
             for start_row in range(len(board)):
                 for start_col in range(len(board[start_row])):
                     if board[start_row][start_col] == self.game_state.current_player:
                         for end_row, end_col in get_adjacent_positions(start_row, start_col, board):
-                            if board[end_row][end_col] == 0:
+                            if board[end_row][end_col] == EMPTY:
                                 moves.append((start_row, start_col, end_row, end_col))
 
         return moves
@@ -71,7 +68,7 @@ class TreeNode:
         self.children.append(child_node)
         return child_node
 
-    def best_child(self, exploration_weight=1.4):
+    def best_child(self, exploration_weight=0.8):
         """Select the child with the highest UCB1 score."""
         return max(
             self.children,
@@ -79,14 +76,16 @@ class TreeNode:
                               exploration_weight * math.sqrt(math.log(self.visits) / child.visits)
         )
 
-    def simulate(self, game_state, player):
-        """Simulate a random playthrough from the given game state."""
-        while not self.is_terminal():
+    def simulate(self, game_state, player, max_depth=10):
+        """Simulate a playthrough up to max_depth using a heuristic-driven move selection."""
+        depth = 0
+        while depth < max_depth and not self.is_terminal():
             possible_moves = generate_possible_moves(game_state)
             if not possible_moves:
                 break
-            move = random.choice(possible_moves)
+            move = heuristic_choice(possible_moves, game_state)
             game_state = self._apply_move(game_state, move)
+            depth += 1
 
         winner = game_state.check_winner()
         return 1 if winner == player else -1 if winner is not None else 0
@@ -95,8 +94,6 @@ class TreeNode:
         """Backpropagate the result of a simulation up the tree."""
         node = self
         while node is not None:
-            if not isinstance(node, TreeNode):
-                raise TypeError(f"Backpropagation encountered a non-TreeNode instance: {type(node)}. Node details: {node}")
             node.visits += 1
             node.wins += result
             result = -result
@@ -119,16 +116,13 @@ def generate_possible_moves(game_state):
     possible_moves = []
     board = game_state.board
 
-    # Determine if the current player is in placement or movement phase
     if (game_state.current_player == PLAYER1 and game_state.p1_pieces < 8) or \
        (game_state.current_player == PLAYER2 and game_state.p2_pieces < 8):
-        # Placement phase: Generate all empty spots on the board
         for row in range(len(board)):
             for col in range(len(board[0])):
                 if board[row][col] == EMPTY:
                     possible_moves.append((row, col))
     else:
-        # Movement phase: Generate all valid moves from current player’s pieces to empty adjacent spots
         for start_row in range(len(board)):
             for start_col in range(len(board[0])):
                 if board[start_row][start_col] == game_state.current_player:
@@ -138,8 +132,13 @@ def generate_possible_moves(game_state):
 
     return possible_moves
 
+def heuristic_choice(moves, game_state):
+    """Prioritize moves closer to the center for better positioning."""
+    center = BOARD_SIZE // 2
+    return min(moves, key=lambda move: abs(move[0] - center) + abs(move[1] - center))
+
 class IBAgent:
-    def __init__(self, player, simulations=100):
+    def __init__(self, player, simulations=300):
         self.player = player
         self.simulations = simulations
 
@@ -164,11 +163,10 @@ class IBAgent:
             possible_moves = generate_possible_moves(game_state)
             best_move = random.choice(possible_moves) if possible_moves else None
 
-        # Format the move to ensure correct type is returned
         if best_move:
             if isinstance(best_move, tuple) and len(best_move) == 4:
                 start_pos, end_pos = best_move[:2], best_move[2:]
                 return (start_pos[0], start_pos[1], end_pos[0], end_pos[1])
             else:
-                return best_move  # Returns (row, col) for placement
+                return best_move
         return None
