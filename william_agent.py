@@ -23,72 +23,20 @@ def evaluate_runtime(func):
 
 # example function for static checks
 @evaluate_runtime
-def Ishaan_heatmap(game,
+def static_weight(game,
                   board,
                   turn_count,
                   attempt_number,
                   lastFitness):
-    
+
     # useful variables
     current_player = game.current_player
-    opponent_player = -current_player  # Opponent's pieces
     p1_tiles = game.p1_tiles
     p2_tiles = game.p2_tiles
 
-    # Initialize an 8x8 output array for the heatmap with all cells starting at zero
     output = np.zeros((8, 8))
 
-    # Set cells with pieces (ally or enemy) to 0 in the heatmap
-    for y in range(BOARD_SIZE):
-        for x in range(BOARD_SIZE):
-            if board[y][x] != EMPTY:
-                output[y][x] = 0  # Cell with a piece is set to 0
-
-    # Determine clustering incentives based on fitness score (only if turn_count is not 1 or 2)
-    if turn_count != 1 and turn_count != 2:
-        ally_incentive, enemy_incentive = (1, 3) if lastFitness < 10 else (3, 1)
-    else:
-        ally_incentive, enemy_incentive = 0, 0  # Skip clustering incentive for early turns
-
-    # Apply clustering incentives to empty cells based on adjacency to allies or enemies
-    for y in range(BOARD_SIZE):
-        for x in range(BOARD_SIZE):
-            if board[y][x] == EMPTY:
-                # Count ally and enemy neighbors in the surrounding cells (8 directions)
-                ally_neighbors = 0
-                enemy_neighbors = 0
-
-                for dy in [-1, 0, 1]:
-                    for dx in [-1, 0, 1]:
-                        if dy == 0 and dx == 0:
-                            continue  # Skip the cell itself
-
-                        ny, nx = (y + dy) % BOARD_SIZE, (x + dx) % BOARD_SIZE  # Wrap around (toroidal)
-                        if board[ny][nx] == current_player:
-                            ally_neighbors += 1
-                        elif board[ny][nx] == opponent_player:
-                            enemy_neighbors += 1
-
-                # Apply clustering incentive based on number of adjacent ally/enemy tiles
-                output[y][x] += (ally_neighbors * ally_incentive) + (enemy_neighbors * enemy_incentive)
-
-    # Apply additional weights for lines of two adjacent pieces with a gap
-    directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]  # 8 directions
-
-    for y in range(BOARD_SIZE):
-        for x in range(BOARD_SIZE):
-            # Check for two pieces with a gap in all 8 directions
-            for dy, dx in directions:
-                first_y, first_x = (y + dy) % BOARD_SIZE, (x + dx) % BOARD_SIZE
-                gap_y, gap_x = (first_y + dy) % BOARD_SIZE, (first_x + dx) % BOARD_SIZE
-
-                # Check if we have two pieces with a gap in the middle
-                if board[y][x] == current_player and board[gap_y][gap_x] == current_player and board[first_y][first_x] == EMPTY:
-                    # Add +10 to the gap cell for two ally pieces with a gap
-                    output[first_y][first_x] += 10
-                elif board[y][x] == opponent_player and board[gap_y][gap_x] == opponent_player and board[first_y][first_x] == EMPTY:
-                    # Add +4 to the gap cell for two enemy pieces with a gap
-                    output[first_y][first_x] += 4
+    # add your code here
 
     return output
 
@@ -204,6 +152,72 @@ def get_possible_heatmap_moves(game, coldest_cell, target_cells):
 
     return possible_moves
 
+def evaluate_piece_count(board, plater):
+    piece_count = sum(1 for row in board for cell in row if cell == plater)
+    return piece_count
+######### WILLIAM THINGS ##################
+
+@evaluate_runtime
+def calculate_board_score(board, player):
+    EMPTY = 0  # Assume EMPTY is represented as 0
+    enemy = 3 - player  # Assuming players are represented as 1 and 2
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]  # horizontal, vertical, two diagonals
+    fitness = 0
+
+    def check_line(y, x, dy, dx, length):
+        line = [board[(y + i*dy) % len(board)][(x + i*dx) % len(board)] for i in range(length)]
+        return line
+
+    for y in range(len(board)):
+        for x in range(len(board)):
+            if board[y][x] == EMPTY:
+                for dy, dx in directions:
+                    # Check for ally conditions
+                    line = check_line(y, x, dy, dx, 5)
+                    if line[2] == EMPTY:
+                        if line[1] == player and line[3] == player:
+                            if line[0] == EMPTY and line[4] == EMPTY:
+                                fitness += 10  # Condition 1: Two ally tiles with open spaces on both sides
+                            else:
+                                fitness += 7   # Condition 5: Two ally tiles with a space between
+                    elif line.count(player) >= 2 and line[0] == EMPTY and line[4] == EMPTY:
+                        fitness += 10  # Condition 1: Two or more ally tiles with open spaces on both sides
+
+                    # Check for enemy conditions
+                    if line.count(enemy) >= 2:
+                        if line[0] == EMPTY and line[4] == EMPTY:
+                            fitness += 10  # Condition 2: Two or more enemy tiles with open spaces
+                        elif line[2] == EMPTY and line[1] == enemy and line[3] == enemy:
+                            fitness = 0  # Condition 3: Two enemy tiles with a space between
+
+                    # Check for 3 in a row
+                    if line[1:4].count(player) == 3:
+                        fitness += 20  # Condition 4: 3 in a row for ally
+
+            elif board[y][x] != EMPTY:
+                fitness = 0  # Condition 6: Space is already occupied
+
+    return fitness
+
+
+
+def get_best_move(board, player):
+    best_score = float('-inf')
+    best_move = None
+
+    for y in range(len(board)):
+        for x in range(len(board)):
+            if board[y][x] == EMPTY:
+                board[y][x] = player
+                score = calculate_board_score(board, player)
+                board[y][x] = EMPTY
+
+                if score > best_score:
+                    best_score = score
+                    best_move = (y, x)
+
+    return best_move, best_score
+
 
 def get_fitness(game,
                 turn_count,
@@ -217,13 +231,25 @@ def get_fitness(game,
         game_copy.move_checker(move[0], move[1], move[2], move[3])
 
     # useful variables
-    board = game.board
-    p1_pieces = game.p1_pieces
-    p2_pieces = game.p2_pieces
-    current_player = game.current_player * -1
+    board = game_copy.board
+    p1_pieces = game_copy.p1_pieces
+    p2_pieces = game_copy.p2_pieces
+    current_player = game_copy.current_player
+    if current_player == 1:
+        current_player_pieces = p1_pieces
+    else:
+        current_player_pieces = p2_pieces
     turn_count += 1
+    
 
     fitness = 0
     # add your fitness check functions here
-
+    fitness += allies_two_in_a_row(board, current_player * -1)
+    fitness += enemy_two_in_a_row(board, current_player * -1)
+    fitness += enemy_close_to_two(board, current_player * -1)
+    
+    
+        
     return fitness
+
+
