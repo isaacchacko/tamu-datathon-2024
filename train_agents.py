@@ -4,6 +4,7 @@ from q_learning_agent import QLearningAgent, get_available_device
 from game_environment import get_reward
 from PushBattle import Game, PLAYER1, PLAYER2, EMPTY
 from collections import deque
+import random
 
 def train_agent_with_self_play(agent, num_episodes=10000, save_interval=1000, load_path=None):
     if load_path and os.path.exists(load_path):
@@ -52,7 +53,7 @@ def train_agent_with_self_play(agent, num_episodes=10000, save_interval=1000, lo
             else:
                 # Simulate opponent's move (random for simplicity)
                 opponent_moves = agent.get_possible_moves(game)
-                opponent_move = np.random.choice(opponent_moves)
+                opponent_move = random.choice(opponent_moves)
                 if len(opponent_move) == 2:
                     game.place_checker(*opponent_move)
                 else:
@@ -69,7 +70,7 @@ def train_agent_with_self_play(agent, num_episodes=10000, save_interval=1000, lo
             historical_models.append(agent.model.get_weights())
             agent.model.set_weights(initial_weights)  # Reset to most recent model
         
-        if episode % 100 == 0:
+        if episode % 10 == 0:
             print(f"Episode {episode}, Loss: {loss if 'loss' in locals() else 'N/A'}")
         
         # Save the model periodically
