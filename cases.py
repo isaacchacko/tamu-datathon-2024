@@ -508,7 +508,7 @@ def RadialConvolution(game,
                 for j in range(-2, 3):
                     y = (center_y + i) % 8
                     x = (center_x + j) % 8
-                    if grid[y, x] == enemy:
+                    if output[y, x] == enemy:
                         count += 1
 
             output[center_y, center_x] = count
