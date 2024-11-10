@@ -36,7 +36,7 @@ def start_game():
 
     ##### MODIFY BELOW #####
 
-    agent = IBAgent()
+    agent = IBAgent(player=PLAYER2, simulations=100)
 
     ###################
     
