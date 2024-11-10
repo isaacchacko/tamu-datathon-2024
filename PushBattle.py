@@ -83,7 +83,7 @@ class Game:
             print("Black has moved all pieces. Must move an existing piece")
             return False
         
-        print(f'{row = }, {col = }, {self.board = }, {self.board[row][col] = }, {BOARD_SIZE = }')
+        #print(f'{row = }, {col = }, {self.board = }, {self.board[row][col] = }, {BOARD_SIZE = }')
         return 0 <= row < BOARD_SIZE and 0 <= col < BOARD_SIZE and self.board[row][col] == EMPTY
 
     # Checks if the potential MOVEMENT of the piece is valid
