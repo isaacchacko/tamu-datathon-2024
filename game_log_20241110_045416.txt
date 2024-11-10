@@ -1,0 +1,1241 @@
+Game 1
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.019s, P2: 0.012s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+1's move is: [4, 3] or d4
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . W . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [2, 6] or g6
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . W . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+1's move is: [7, 2] or c1
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . W . . . .
+. . . . . . . .
+. . . . . . . .
+. . W . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [5, 2] or c3
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . W . . .
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+. . W . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+1's move is: [2, 4] or e6
+. . . . . . . .
+. . . . . . . .
+. . . . W . B .
+. . . . . . . .
+. . . . W . . .
+. . B . . . . .
+. . . . . . . .
+. . W . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [2, 2] or c6
+. . . . . . . .
+. . . . . . . .
+. . B . W . B .
+. . . . . . . .
+. . . . W . . .
+. . B . . . . .
+. . . . . . . .
+. . W . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+1's move is: [1, 3] or d7
+. . . . . . . .
+. . . W . . . .
+. . . . . . B .
+. B . . . W . .
+. . . . W . . .
+. . B . . . . .
+. . . . . . . .
+. . W . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [2, 2] or c6
+. . . . W . . .
+. . . . . . . .
+. . B . . . B .
+. . . . . W . .
+B . . . W . . .
+. . B . . . . .
+. . . . . . . .
+. . W . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+1's move is: [3, 3] or d5
+. . . . W . . .
+. B . . . . . .
+. . . . . . B .
+. . . W . W . .
+B . . . . . . .
+. . B . . W . .
+. . . . . . . .
+. . W . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [6, 0] or a2
+. . . . W . . .
+. B . . . . . .
+. . . . . . B .
+. . . W . W . .
+B . . . . . . .
+. . B . . W . .
+B . . . . . . .
+. . W . . . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+1's move is: [5, 0] or a3
+. . . . W . . .
+. B . . . . . .
+. . . . . . B .
+B . . W . W . .
+. . . . . . . .
+W . B . . W . .
+. . . . . . . .
+B . W . . . . .
+
+Turn 12
+Sending move to: -1
+First move attempt
+-1's move is: [0, 7] or h8
+. . . . W . . B
+. B . . . . . .
+. . . . . . B .
+B . . W . W . .
+. . . . . . . .
+W . B . . W . .
+. B . . . . . .
+. . W . . . . .
+
+Turn 13
+Sending move to: 1
+First move attempt
+1's move is: [2, 7] or h6
+. . . . W . . B
+. B . . . . . .
+. . . . . B . W
+. . . W . W . .
+. B . . . . . .
+W . B . . W . .
+. B . . . . . .
+. . W . . . . .
+
+Turn 14
+Sending move to: -1
+First move attempt
+-1's move is: [6, 4] or e2
+. . . . W . . B
+. B . . . . . .
+. . . . . B . W
+. . . W . W . .
+. B . . . . W .
+W . B . . . . .
+. B . . B . . .
+. . W . . . . .
+
+Turn 15
+Sending move to: 1
+First move attempt
+1's move is: [6, 3] or d2
+. W . . W . . B
+. B . . . . . .
+. . . . . B . W
+. . . W . W . .
+. B . . . . W .
+W . B . . . . .
+. B . W . B . .
+. . . . . . . .
+
+Turn 16
+Sending move to: -1
+First move attempt
+-1's move is: [3, 0] or a5
+. W . . W . . B
+. B . . . . W .
+. . . . . B . .
+B . . W . W . .
+. B . . . . W .
+W . B . . . . .
+. B . W . B . .
+. . . . . . . .
+Winner: PLAYER2
+Game String: -d4-g6-c1-c3-e6-c6-d7-c6-d5-a2-a3-h8-h6-e2-d2-a5
+
+==================================================
+
+Game 2
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.008s, P2: 0.002s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+1's move is: [7, 7] or h1
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . W
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [3, 0] or a5
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . W
+
+Turn 3
+Sending move to: 1
+First move attempt
+1's move is: [2, 0] or a6
+. . . . . . . .
+. . . . . . . .
+W . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . W
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [7, 5] or f1
+. . . . . . . .
+. . . . . . . .
+W . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . W
+
+Turn 5
+Sending move to: 1
+First move attempt
+1's move is: [7, 1] or b1
+. . . . . . . .
+. . . . . . . .
+W . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. W . . . B . W
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [3, 0] or a5
+. . . . . . . .
+W . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. W . . . B . W
+
+Turn 7
+Sending move to: 1
+First move attempt
+1's move is: [3, 3] or d5
+. . . . . . . .
+W . . . . . . .
+. . . . . . . .
+B . . W . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. W . . . B . W
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [5, 6] or g3
+. . . . . . . .
+W . . . . . . .
+. . . . . . . .
+B . . W . . . .
+. . . . . . . .
+B . . . . . B .
+. . . . . . . .
+. W . . . B . W
+
+Turn 9
+Sending move to: 1
+First move attempt
+1's move is: [5, 3] or d3
+. . . . . . . .
+W . . . . . . .
+. . . . . . . .
+B . . W . . . .
+. . . . . . . .
+B . . W . . B .
+. . . . . . . .
+. W . . . B . W
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [4, 3] or d4
+. . . . . . . .
+W . . . . . . .
+. . . W . . . .
+B . . . . . . .
+. . . B . . . .
+B . . . . . B .
+. . . W . . . .
+. W . . . B . W
+
+Turn 11
+Sending move to: 1
+First move attempt
+1's move is: [4, 7] or h4
+. . . . . . . .
+W . . . . . . .
+. B . W . . . .
+. . . . . . . .
+. . . B . . . W
+. . . . . . . .
+. B . W . B . .
+. W . . . B . W
+
+Turn 12
+Sending move to: -1
+First move attempt
+-1's move is: [6, 0] or a2
+. . W . . . W .
+W . . . . . . .
+. B . W . . . .
+. . . . . . . .
+. . . B . . . W
+. . . . . . . .
+B . B W . B . .
+. . . . . B . .
+
+Turn 13
+Sending move to: 1
+First move attempt
+1's move is: [2, 7] or h6
+. W W . . . W .
+. . . . . . . .
+. B . W . . . W
+. . . . . . . .
+. . . B . . . W
+. . . . . . . .
+B . B W . B . .
+. . . . . B . .
+
+Turn 14
+Sending move to: -1
+First move attempt
+-1's move is: [2, 0] or a6
+. W W . . . W .
+. . . . . . . .
+B . B W . . W .
+. . . . . . . .
+. . . B . . . W
+. . . . . . . .
+B . B W . B . .
+. . . . . B . .
+
+Turn 15
+Sending move to: 1
+First move attempt
+1's move is: [3, 5] or f5
+. W W . . . W .
+. . . . . . . W
+B . B W . . . .
+. . . . . W . .
+. . . B . . . W
+. . . . . . . .
+B . B W . B . .
+. . . . . B . .
+
+Turn 16
+Sending move to: -1
+First move attempt
+-1's move is: [6, 7] or h2
+. W W . . . W .
+. . . . . . . W
+B . B W . . . .
+. . . . . W . .
+. . . B . . . W
+. . . . . . . .
+. B B W . B . B
+. . . . . B . .
+
+Turn 17
+Sending move to: 1
+First move attempt
+1's move is: [2, 3, 5, 5] or d6f3
+. W W . . . W .
+. . . . . . . W
+B . B . . . . .
+. . . . . W . .
+. . . B . . . W
+. . . . . W . .
+. B B W . B . B
+. . . . . B . .
+
+Turn 18
+Sending move to: -1
+First move attempt
+-1's move is: [6, 1, 7, 2] or b2c1
+. . . . . . W .
+W . W . . . . W
+B . B . . . . .
+. . . . . W . .
+. . . B . . . W
+. . B . W W . .
+. . . . . B . B
+. . B . . B . .
+
+Turn 19
+Sending move to: 1
+First move attempt
+1's move is: [5, 5, 6, 1] or f3b2
+. . . B . . W .
+W . W . . . . W
+B . B . . . . .
+. . . . . W . .
+. . . B . . . W
+. . B . W . . .
+. W . . . B . B
+. . . . . B . .
+
+Turn 20
+Sending move to: -1
+First move attempt
+-1's move is: [5, 2, 4, 4] or c3e4
+. . . B . . W .
+W . W . . . . W
+B . B . . . W .
+. . . . . . . .
+. . B . B . . W
+. . . . . . . .
+. W . . W B . B
+. . . . . B . .
+
+Turn 21
+Sending move to: 1
+First move attempt
+1's move is: [6, 4, 1, 3] or e2d7
+. . . . . . W .
+W W . W . . . W
+B . . . . . W .
+. B . . . . . .
+. . B . B . . W
+. . . . . . . .
+. W . . . B . B
+. . . B . B . .
+Winner: PLAYER1
+Game String: -h1-a5-a6-f1-b1-a5-d5-g3-d3-d4-h4-a2-h6-a6-f5-h2-d6f3-b2c1-f3b2-c3e4-e2d7
+
+==================================================
+
+Game 3
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.008s, P2: 0.002s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+1's move is: [1, 5] or f7
+. . . . . . . .
+. . . . . W . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [1, 7] or h7
+. . . . . . . .
+. . . . . W . B
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+1's move is: [3, 1] or b5
+. . . . . . . .
+. . . . . W . B
+. . . . . . . .
+. W . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [2, 3] or d6
+. . . . . . . .
+. . . . . W . B
+. . . B . . . .
+. W . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+1's move is: [6, 2] or c2
+. . . . . . . .
+. . . . . W . B
+. . . B . . . .
+. W . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . W . . . . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [0, 4] or e8
+. . . . B . . .
+. . . . . . . B
+. . . B . . W .
+. W . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . W . . . . .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+1's move is: [7, 3] or d1
+. . . . . . . .
+. . . . . B . B
+. . . B . . W .
+. W . . . . . .
+. . . . . . . .
+. W . . . . . .
+. . . . . . . .
+. . . W . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [7, 6] or g1
+. . . . . . . .
+. . . . . B . B
+. . . B . . W .
+. W . . . . . .
+. . . . . . . .
+. W . . . . . .
+. . . . . . . .
+. . . W . . B .
+
+Turn 9
+Sending move to: 1
+First move attempt
+1's move is: [7, 0] or a1
+. . . . . . . .
+. . . . . B . B
+. . . B . . W .
+. W . . . . . .
+. . . . . . . .
+. W . . . . . .
+. . . . . . . .
+W . . W . . B .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [6, 0] or a2
+W . . . . . . .
+. . . . . B . B
+. . . B . . W .
+. W . . . . . .
+. . W . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . W . . B .
+
+Turn 11
+Sending move to: 1
+First move attempt
+1's move is: [5, 2] or c3
+W . . . . . . .
+. . . . . B . B
+. . . B . . W .
+. W W . . . . .
+. . . . . . . .
+. . W . . . . .
+B . . . . . . .
+. . . W . . B .
+
+Turn 12
+Sending move to: -1
+First move attempt
+-1's move is: [2, 2] or c6
+W . . . . . . .
+. . . . . B . B
+. . B . B . W .
+. . . . . . . .
+W . W . . . . .
+. . W . . . . .
+B . . . . . . .
+. . . W . . B .
+
+Turn 13
+Sending move to: 1
+First move attempt
+1's move is: [2, 1] or b6
+W . . . . . . .
+. . . . . B . B
+. W . B B . W .
+. . . . . . . .
+W . W . . . . .
+. . W . . . . .
+B . . . . . . .
+. . . W . . B .
+
+Turn 14
+Sending move to: -1
+First move attempt
+-1's move is: [6, 7] or h2
+W . . . . B . .
+. . . . . B . B
+. W . B B . W .
+. . . . . . . .
+W . W . . . . .
+. . W . . . . .
+. B . . . . . B
+. . . W . . . .
+
+Turn 15
+Sending move to: 1
+First move attempt
+1's move is: [3, 5] or f5
+W . . . . B . .
+. . . B . B . B
+. W . B . . W .
+. . . . . W . .
+W . W . . . . .
+. . W . . . . .
+. B . . . . . B
+. . . W . . . .
+
+Turn 16
+Sending move to: -1
+First move attempt
+-1's move is: [3, 3] or d5
+W . . . . B . .
+. . . B . B . B
+. W . B . . W .
+. . . B . W . .
+W . . . . . . .
+. W W . . . . .
+. B . . . . . B
+. . . W . . . .
+Winner: PLAYER2
+Game String: -f7-h7-b5-d6-c2-e8-d1-g1-a1-a2-c3-c6-b6-h2-f5-d5
+
+==================================================
+
+Game 4
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.009s, P2: 0.003s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+1's move is: [7, 6] or g1
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . W .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [6, 1] or b2
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. B . . . . . .
+. . . . . . W .
+
+Turn 3
+Sending move to: 1
+First move attempt
+1's move is: [1, 7] or h7
+. . . . . . . .
+. . . . . . . W
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. B . . . . . .
+. . . . . . W .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [2, 3] or d6
+. . . . . . . .
+. . . . . . . W
+. . . B . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. B . . . . . .
+. . . . . . W .
+
+Turn 5
+Sending move to: 1
+First move attempt
+1's move is: [2, 6] or g6
+W . . . . . . .
+. . . . . . . .
+. . . B . . W .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. B . . . . . .
+. . . . . . W .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [1, 1] or b7
+. . . . . . . .
+. B . . . . . .
+. . . B . . W .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. B . . . . . .
+. . . . . . W W
+
+Turn 7
+Sending move to: 1
+First move attempt
+1's move is: [5, 6] or g3
+. . . . . . . .
+. B . . . . . .
+. . . B . . W .
+. . . . . . . .
+. . . . . . . .
+. . . . . . W .
+. B . . . . . .
+. . . . . . W W
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [0, 1] or b8
+. B . . . . . .
+. . . . . . . .
+. B . B . . W .
+. . . . . . . .
+. . . . . . . .
+. . . . . . W .
+. B . . . . . .
+. . . . . . W W
+
+Turn 9
+Sending move to: 1
+First move attempt
+1's move is: [2, 4] or e6
+. B . . . . . .
+. . . . . . . .
+. B B . W . W .
+. . . . . . . .
+. . . . . . . .
+. . . . . . W .
+. B . . . . . .
+. . . . . . W W
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [4, 0] or a4
+. B . . . . . .
+. . . . . . . .
+. B B . W . W .
+. . . . . . . .
+B . . . . . . .
+. . . . . . W .
+. B . . . . . .
+. . . . . . W W
+
+Turn 11
+Sending move to: 1
+First move attempt
+1's move is: [6, 0] or a2
+. B . . . . W .
+. . . . . . . .
+. B B . W . W .
+. . . . . . . .
+B . . . . . . .
+. . . . . . W .
+W . B . . . . .
+. . . . . . W .
+
+Turn 12
+Sending move to: -1
+First move attempt
+-1's move is: [6, 1] or b2
+. B . . . . W .
+. . . . . . . .
+. B B . W . W .
+. . . . . . . .
+B . . . . . . .
+. . . . . . W .
+. B . B . . . W
+. . . . . . W .
+
+Turn 13
+Sending move to: 1
+First move attempt
+1's move is: [5, 5] or f3
+. B . . . . W .
+. . . . . . . .
+. B B . W . W .
+. . . . . . . .
+B . . . . . . .
+. . . . . W . W
+. B . B . . . W
+. . . . . . W .
+
+Turn 14
+Sending move to: -1
+First move attempt
+-1's move is: [6, 4] or e2
+. B . . . . W .
+. . . . . . . .
+. B B . W . W .
+. . . . . . . .
+B . . . . . W .
+. . . . . . . W
+. B B . B . . W
+. . . . . . W .
+
+Turn 15
+Sending move to: 1
+First move attempt
+1's move is: [6, 3] or d2
+. B . . . . W .
+. . . . . . . .
+. B B . W . W .
+. . . . . . . .
+B . . . . . W .
+. . . . . . . W
+. B B W . B . W
+. . . . . . W .
+
+Turn 16
+Sending move to: -1
+First move attempt
+-1's move is: [7, 1] or b1
+. . . . . . W .
+. B . . . . . .
+. B B . W . W .
+. . . . . . . .
+B . . . . . W .
+. B . B . . . W
+. . . W . B . W
+. B . . . . W .
+
+Turn 17
+Sending move to: 1
+First move attempt
+1's move is: [4, 6, 0, 5] or g4f8
+. . . . . W . W
+. B . . . . . .
+. B B . W . W .
+. . . . . . . .
+B . . . . . . .
+. B . B . . . W
+. . . W . B . W
+. B . . . . W .
+Winner: PLAYER1
+Game String: -g1-b2-h7-d6-g6-b7-g3-b8-e6-a4-a2-b2-f3-e2-d2-b1-g4f8
+
+==================================================
+
+Game 5
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.011s, P2: 0.002s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+1's move is: [7, 1] or b1
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. W . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [7, 2] or c1
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+W . B . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+1's move is: [6, 6] or g2
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . W .
+W . B . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [3, 4] or e5
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . W .
+W . B . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+1's move is: [7, 7] or h1
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . W . .
+. . . . . . . .
+. W B . . . . W
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [0, 5] or f8
+. . . . . B . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . W . .
+. . . . . . . .
+. W B . . . . W
+
+Turn 7
+Sending move to: 1
+First move attempt
+1's move is: [2, 5] or f6
+. . . . . B . .
+. . . . . . . .
+. . . . . W . .
+. . . . . . . .
+. . . B . . . .
+. . . . . W . .
+. . . . . . . .
+. W B . . . . W
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [0, 4] or e8
+. . . . B . B .
+. . . . . . . .
+. . . . . W . .
+. . . . . . . .
+. . . B . . . .
+. . . . . W . .
+. . . . . . . .
+. W B . . . . W
+
+Turn 9
+Sending move to: 1
+First move attempt
+1's move is: [3, 0] or a5
+. . . . B . B .
+. . . . . . . .
+. . . . . W . .
+W . . . . . . .
+. . . B . . . .
+. . . . . W . .
+. . . . . . . .
+. W B . . . . W
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [2, 1] or b6
+. . . . B . B .
+. . . . . . . .
+. B . . . W . .
+. . . . . . . .
+. . . B . . . W
+. . . . . W . .
+. . . . . . . .
+. W B . . . . W
+
+Turn 11
+Sending move to: 1
+First move attempt
+1's move is: [2, 6] or g6
+. . . . B . B .
+. . . . . . . .
+. B . . W . W .
+. . . . . . . .
+. . . B . . . W
+. . . . . W . .
+. . . . . . . .
+. W B . . . . W
+
+Turn 12
+Sending move to: -1
+First move attempt
+-1's move is: [2, 2] or c6
+. . . . B . B .
+. . . . . . . .
+B . B . W . W .
+. . . . . . . .
+. . . B . . . W
+. . . . . W . .
+. . . . . . . .
+. W B . . . . W
+
+Turn 13
+Sending move to: 1
+First move attempt
+1's move is: [0, 3] or d8
+. . . W . B B .
+. . . . . . . .
+B . B . W . W .
+. . . . . . . .
+. . . B . . . W
+. . . . . W . .
+. B . . . . . .
+. W . . . . . W
+
+Turn 14
+Sending move to: -1
+First move attempt
+-1's move is: [5, 7] or h3
+. . . W . B B .
+. . . . . . . .
+B . B . W . W .
+. . . . . . . W
+. . . B . . . .
+. . . . . W . B
+. B . . . . . .
+. W . . . . . W
+
+Turn 15
+Sending move to: 1
+First move attempt
+1's move is: [6, 7] or h2
+. . . W . B B W
+. . . . . . . .
+B . B . W . W .
+. . . . . . . W
+. . . B . . . B
+. . . . . W . .
+. B . . . . . W
+. W . . . . . .
+
+Turn 16
+Sending move to: -1
+First move attempt
+-1's move is: [5, 7] or h3
+. . . W . B B W
+. . . . . . . .
+B . B . W . W .
+. . . . . . . W
+. . . B . . . B
+. . . . . W . B
+. B . . . . . .
+. W . . . . . W
+
+Turn 17
+Sending move to: 1
+First move attempt
+1's move is: [7, 1, 7, 5] or b1f1
+. . . W . . . W
+. . . . . B . B
+B . B . W . W .
+. . . . . . . W
+. . . B . . . B
+. . . . . W . B
+. B . . . . . .
+. . . . . W . W
+
+Turn 18
+Sending move to: -1
+First move attempt
+-1's move is: [5, 7, 4, 4] or h3e4
+. . . W . . . W
+. . . . . B . B
+B . B . W . W .
+. . . . . . . W
+. . B . B . . B
+. . . . . . . .
+. B . . . . W .
+. . . . . W . W
+
+Turn 19
+Sending move to: 1
+First move attempt
+1's move is: [0, 7, 6, 3] or h8d2
+. . . W . . . .
+. . . . . B . B
+B . B . W . W .
+. . . . . . . W
+. . B . B . . B
+. . . . . . . .
+. B . W . . W .
+. . . . . W . W
+
+Turn 20
+Sending move to: -1
+First move attempt
+-1's move is: [4, 7, 0, 0] or h4a8
+B . . W . . . .
+. . . . . B . B
+B . B . W . W .
+. . . . . . . W
+. . B . B . . .
+. . . . . . . .
+. B . W . . W .
+. . . . . W . W
+
+Turn 21
+Sending move to: 1
+First move attempt
+1's move is: [3, 7, 0, 2] or h5c8
+B . W . W . . .
+. . . . . B . B
+B . B . W . W .
+. . . . . . . .
+. . B . B . . .
+. . . . . . . .
+. B . W . . W .
+. . . . . W . W
+Winner: PLAYER1
+Game String: -b1-c1-g2-e5-h1-f8-f6-e8-a5-b6-g6-c6-d8-h3-h2-h3-b1f1-h3e4-h8d2-h4a8-h5c8
+
+==================================================
+
+
+Final Results:
+Player 1 wins: 3
+Player 2 wins: 2
+Errors: 0
+Player 1 win rate: 60.00%
+Player 2 win rate: 40.00%
+Error rate: 0.00%
