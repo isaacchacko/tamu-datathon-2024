@@ -391,6 +391,130 @@ def get_fitness(game,
 
     return fitness
 
+# ISHAAN BANSAL
+
+# example function for static checks
+
+
+@evaluate_runtime
+def Ishaan_heatmap(game,
+                   board,
+                   turn_count,
+                   attempt_number,
+                   lastFitness):
+
+    # useful variables
+    current_player = game.current_player
+    opponent_player = -current_player  # Opponent's pieces
+    p1_tiles = game.p1_tiles
+    p2_tiles = game.p2_tiles
+
+    # Initialize an 8x8 output array for the heatmap with all cells starting at zero
+    output = np.zeros((8, 8))
+
+    # Set cells with pieces (ally or enemy) to 0 in the heatmap
+    for y in range(BOARD_SIZE):
+        for x in range(BOARD_SIZE):
+            if board[y][x] != EMPTY:
+                output[y][x] = 0  # Cell with a piece is set to 0
+
+    # Determine clustering incentives based on fitness score (only if turn_count is not 1 or 2)
+    if turn_count != 1 and turn_count != 2:
+        ally_incentive, enemy_incentive = (
+            1, 3) if lastFitness < 10 else (3, 1)
+    else:
+        # Skip clustering incentive for early turns
+        ally_incentive, enemy_incentive = 0, 0
+
+    # Apply clustering incentives to empty cells based on adjacency to allies or enemies
+    for y in range(BOARD_SIZE):
+        for x in range(BOARD_SIZE):
+            if board[y][x] == EMPTY:
+                # Count ally and enemy neighbors in the surrounding cells (8 directions)
+                ally_neighbors = 0
+                enemy_neighbors = 0
+
+                for dy in [-1, 0, 1]:
+                    for dx in [-1, 0, 1]:
+                        if dy == 0 and dx == 0:
+                            continue  # Skip the cell itself
+
+                        # Wrap around (toroidal)
+                        ny, nx = (y + dy) % BOARD_SIZE, (x + dx) % BOARD_SIZE
+                        if board[ny][nx] == current_player:
+                            ally_neighbors += 1
+                        elif board[ny][nx] == opponent_player:
+                            enemy_neighbors += 1
+
+                # Apply clustering incentive based on number of adjacent ally/enemy tiles
+                output[y][x] += (ally_neighbors * ally_incentive) + \
+                    (enemy_neighbors * enemy_incentive)
+
+    # Apply additional weights for lines of two adjacent pieces with a gap
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1),
+                  (1, 1), (-1, 1), (1, -1)]  # 8 directions
+
+    for y in range(BOARD_SIZE):
+        for x in range(BOARD_SIZE):
+            # Check for two pieces with a gap in all 8 directions
+            for dy, dx in directions:
+                first_y, first_x = (y + dy) % BOARD_SIZE, (x + dx) % BOARD_SIZE
+                gap_y, gap_x = (
+                    first_y + dy) % BOARD_SIZE, (first_x + dx) % BOARD_SIZE
+
+                # Check if we have two pieces with a gap in the middle
+                if board[y][x] == current_player and board[gap_y][gap_x] == current_player and board[first_y][first_x] == EMPTY:
+                    # Add +10 to the gap cell for two ally pieces with a gap
+                    output[first_y][first_x] += 10
+                elif board[y][x] == opponent_player and board[gap_y][gap_x] == opponent_player and board[first_y][first_x] == EMPTY:
+                    # Add +4 to the gap cell for two enemy pieces with a gap
+                    output[first_y][first_x] += 4
+
+    return output
+# ISAAC CHACKO
+
+
+@evaluate_runtime
+def RadialConvolution(game,
+                      board,
+                      turn_count,
+                      attempt_number,
+                      lastFitness):
+
+    # useful variables
+    current_player = game.current_player
+    p1_tiles = game.p1_tiles
+    p2_tiles = game.p2_tiles
+
+    output = np.zeros((8, 8))
+
+    """
+    Count enemy tiles in a 5x5 window traversing an 8x8 grid with wrap-around.
+    
+    Parameters:
+    grid (numpy.ndarray): 8x8 numpy array representing the game board
+    player (int): Current player (1 or -1)
+    
+    Returns:
+    numpy.ndarray: 8x8 numpy array with counts of enemy tiles in each 5x5 window
+    """
+    enemy = -current_player
+    output = np.zeros((8, 8), dtype=int)
+
+    for center_y in range(8):
+        for center_x in range(8):
+            count = 0
+            for i in range(-2, 3):
+                for j in range(-2, 3):
+                    y = (center_y + i) % 8
+                    x = (center_x + j) % 8
+                    if grid[y, x] == enemy:
+                        count += 1
+
+            output[center_y, center_x] = count
+
+    return output
+
 
 def combine_heatmaps(heatmap_functions, game):
     """
@@ -422,7 +546,12 @@ def combine_heatmaps(heatmap_functions, game):
     return result
 
 
-def combine_heatmaps(heatmap_functions, game):
+def combine_heatmaps(heatmap_functions,
+                     game,
+                     board,
+                     turn_count,
+                     attempt_number,
+                     lastFitness):
     """
     Combine multiple heatmaps generated by different functions.
 
@@ -439,7 +568,10 @@ def combine_heatmaps(heatmap_functions, game):
     # Iterate through each heatmap function
     for func in heatmap_functions:
         # Generate the heatmap using the current function
-        heatmap = func(game)
+        heatmap = func(board,
+                       turn_count,
+                       attempt_number,
+                       lastFitness)
 
         # Check if the generated heatmap is a valid 8x8 NumPy array
         if not isinstance(heatmap, np.ndarray) or heatmap.shape != (8, 8):
@@ -458,17 +590,14 @@ def run_cases(game,
               attempt_number,
               lastFitness):
 
-    heatmap_array = combine_heatmaps( < insert heatmap functions here > )
-    combined_heatmap, total_initial_fitness = combine_heatmaps_and_fitness( < insert initial fitness functions here > )
-
-    # sum the heatmaps together
-    total_heatmap_array = heatmap_array + combined_heatmap
+    heatmap_array = combine_heatmaps(
+        [Ishaan_heatmap, RadialConvolution], game, board, turn_count, attempt_number, lastFitness)
 
     # get the shrinked list of heatmap tiles
-    final_heatmap = get_hot(total_heatmap_array)
+    final_heatmap = get_hot(heatmap_array)
 
     # get the shittiest tile on the board
-    shitter = get_coldest(total_heatmap_array, game)
+    shitter = get_coldest(heatmap_array, game)
 
     # generate moves for sim
     possible_moves = get_possible_heatmap_moves(game, shitter, final_heatmap)
