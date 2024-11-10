@@ -40,6 +40,7 @@ def static_weight(game,
 
     return output
 
+
 def get_hot(heatmap):
     # Ensure the input is a NumPy array
     heatmap = np.array(heatmap)
@@ -130,14 +131,18 @@ def get_possible_heatmap_moves(game, coldest_cell, target_cells):
     return possible_moves
 
 ###### FITNESS STUFF ######
+
+
 @evaluate_runtime
 def evaluate_piece_count(current_player_pieces):
     return current_player_pieces
 
+
 @evaluate_runtime
 def evaluate_defensive_formation(board, player):
     defensive_score = 0
-    directions = [(0, 1), (1, 0), (1, 1), (1, -1), (-1, 0), (0, -1), (-1, -1), (-1, 1)]
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1),
+                  (-1, 0), (0, -1), (-1, -1), (-1, 1)]
 
     for r in range(8):
         for c in range(8):
@@ -148,20 +153,21 @@ def evaluate_defensive_formation(board, player):
                     nc = (c + dc) % 8  # Wrap around columns
                     if board[nr][nc] == player:
                         backed_up += 1
-                
+
                 if backed_up >= 2:
                     defensive_score += 3.0
                 if backed_up >= 3:
                     defensive_score += 2.0  # Additional bonus for extra support
-    
+
     return defensive_score * 2.5  # Applying the weight
+
 
 @evaluate_runtime
 def evaluate_distance_to_victory(board, player, opponent):
     victory_score = 0
     directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
     size = len(board)  # Assuming the board is square (8x8)
-    
+
     def check_line(line, player):
         player_count = line.count(player)
         empty_count = line.count(None)
@@ -184,15 +190,18 @@ def evaluate_distance_to_victory(board, player, opponent):
                     line.append(board[nr][nc])
                 if len(line) == 3:
                     victory_score += check_line(line, player)
-                    victory_score -= check_line(line, opponent) * 0.8  # Slightly less weight for opponent's threats
+                    # Slightly less weight for opponent's threats
+                    victory_score -= check_line(line, opponent) * 0.8
 
     return victory_score
+
 
 @evaluate_runtime
 def evaluate_opponent_cluster_disruption(board, opponent):
     disruption_score = 0
     size = len(board)
-    directions = [(0, 1), (1, 0), (1, 1), (1, -1), (0, -1), (-1, 0), (-1, -1), (-1, 1)]
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1),
+                  (0, -1), (-1, 0), (-1, -1), (-1, 1)]
 
     def is_opponent(r, c):
         return board[r][c] == opponent
@@ -229,20 +238,23 @@ def evaluate_opponent_cluster_disruption(board, opponent):
                             if board[push_r][push_c] is None:  # Can push
                                 # Temporarily move the piece
                                 board[nr][nc], board[push_r][push_c] = None, opponent
-                                new_cluster_size = get_cluster_size(push_r, push_c)
+                                new_cluster_size = get_cluster_size(
+                                    push_r, push_c)
                                 # Revert the move
                                 board[nr][nc], board[push_r][push_c] = opponent, None
-                                
+
                                 if new_cluster_size < original_cluster_size:
                                     disruption_score += 4  # Apply weight for disrupting clusters
 
     return disruption_score
 
+
 @evaluate_runtime
 def evaluate_potential_win_pathways(board, player):
     pathway_score = 0
     size = len(board)  # Assuming a square board
-    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]  # Horizontal, vertical, diagonal
+    # Horizontal, vertical, diagonal
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
 
     def is_player_piece(r, c):
         return board[r][c] == player
@@ -281,14 +293,17 @@ def evaluate_potential_win_pathways(board, player):
 
     return pathway_score
 
+
 def calculate_board_score(board, player):
     EMPTY = 0  # Assume EMPTY is represented as 0
     enemy = 3 - player  # Assuming players are represented as 1 and 2
-    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]  # horizontal, vertical, two diagonals
+    # horizontal, vertical, two diagonals
+    directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
     fitness = 0
 
     def check_line(y, x, dy, dx, length):
-        line = [board[(y + i*dy) % len(board)][(x + i*dx) % len(board)] for i in range(length)]
+        line = [board[(y + i*dy) % len(board)][(x + i*dx) %
+                                               len(board)] for i in range(length)]
         return line
 
     for y in range(len(board)):
@@ -341,6 +356,7 @@ def get_best_move(board, player):
 
     return best_move, best_score
 
+
 def get_fitness(game,
                 turn_count,
                 move):  # move is (y, x)
@@ -367,11 +383,11 @@ def get_fitness(game,
     # add your fitness check functions here
     fitness += evaluate_piece_count(current_player_pieces)
     fitness += evaluate_defensive_formation(board, current_player)
-    fitness += evaluate_distance_to_victory(board, current_player, current_player * -1)
+    fitness += evaluate_distance_to_victory(board,
+                                            current_player, current_player * -1)
     fitness += evaluate_opponent_cluster_disruption(board, current_player * -1)
-    fitness +=  evaluate_potential_win_pathways(board, current_player)
+    fitness += evaluate_potential_win_pathways(board, current_player)
     fitness += get_best_move(board, current_player)
-
 
     return fitness
 
@@ -464,3 +480,23 @@ def run_cases(game,
                                                        possible_move)
 
     return move_fitness_dict
+
+
+def get_best_move_and_fitness(move_fitness_dict):
+    """
+    Get the move with the highest fitness value and its corresponding fitness from a dictionary of moves and their fitness values.
+
+    Parameters:
+    move_fitness_dict (dict): A dictionary where keys are moves and values are their fitness scores.
+
+    Returns:
+    tuple: A tuple containing (best_move, best_fitness), or (None, None) if the dictionary is empty.
+    """
+    if not move_fitness_dict:
+        return None, None  # Return None, None if the dictionary is empty
+
+    # Find the move with the maximum fitness value
+    best_move = max(move_fitness_dict, key=move_fitness_dict.get)
+    best_fitness = move_fitness_dict[best_move]
+
+    return best_move, best_fitness
