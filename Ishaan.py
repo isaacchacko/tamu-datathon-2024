@@ -46,7 +46,7 @@ def Ishaan_heatmap(game,
 
     # Determine clustering incentives based on fitness score (only if turn_count is not 1 or 2)
     if turn_count != 1 and turn_count != 2:
-        ally_incentive, enemy_incentive = (1, 3) if lastFitness < 13 else (3, 1)
+        ally_incentive, enemy_incentive = (1, 3) if lastFitness < 10 else (3, 1)
     else:
         ally_incentive, enemy_incentive = 0, 0  # Skip clustering incentive for early turns
 
