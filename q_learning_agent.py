@@ -1,6 +1,6 @@
 import numpy as np
 import tensorflow as tf
-from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
+from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES
 import random
 
 def get_available_device():
