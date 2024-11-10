@@ -575,9 +575,9 @@ def run_cases(game,
 
     move_fitness_dict = {}
     for possible_move in possible_moves:
-        move_fitness_dict[possible_move] = get_fitness(game,
-                                                       turn_count,
-                                                       possible_move)
+        move_fitness_dict[tuple(possible_move)] = get_fitness(game,
+                                                              turn_count,
+                                                              possible_move)
 
     return move_fitness_dict
 
