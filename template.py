@@ -27,7 +27,7 @@ def static_weight(game,
                   board,
                   turn_count,
                   attempt_number,
-                  wentFirst):
+                  lastFitness):
 
     # useful variables
     current_player = game.current_player
@@ -44,22 +44,23 @@ def static_weight(game,
 
 
 @evaluate_runtime
-def initial_fitness(game,
-                    board,
-                    turn_count,
-                    attempt_number,
-                    wentFirst):
+def get_initial_fitness(game,
+                        board,
+                        turn_count,
+                        attempt_number,
+                        lastFitness):
 
     # useful variables
     current_player = game.current_player
     p1_tiles = game.p1_tiles
     p2_tiles = game.p2_tiles
 
+    fitness = 0
     output = np.zeros((8, 8))
 
     # add your code here
 
-    return output
+    return fitness, output
 
 
 def get_hot(heatmap):
@@ -152,27 +153,25 @@ def get_possible_heatmap_moves(game, coldest_cell, target_cells):
     return possible_moves
 
 
-def evaluate_move(game,
-                  board,
-                  turn_count,
-                  attempt_number,
-                  wentFirst,
-                  move):
+def get_fitness(game,
+                turn_count,
+                move):  # move is (y, x)
 
-    # useful variables
-    current_player = game.current_player
-    p1_tiles = game.p1_tiles
-    p2_tiles = game.p2_tiles
-
-    # Apply the move to a copy of the game
+    # create the new game state
     game_copy = Game.from_dict(game.to_dict())
     if len(move) == 2:
         game_copy.place_checker(move[0], move[1])
     else:
         game_copy.move_checker(move[0], move[1], move[2], move[3])
 
-    fitness = 0
+    # useful variables
+    board = game.board
+    p1_pieces = game.p1_pieces
+    p2_pieces = game.p2_pieces
+    current_player = game.current_player * -1
+    turn_count += 1
 
-    # add your pattern checks here
+    fitness = 0
+    # add your fitness check functions here
 
     return fitness
