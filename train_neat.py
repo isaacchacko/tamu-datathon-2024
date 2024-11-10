@@ -1,4 +1,3 @@
-# train_neat.py
 import neat
 import os
 import random
@@ -10,13 +9,12 @@ def eval_genomes(genomes, config):
         net = neat.nn.FeedForwardNetwork.create(genome, config)
         genome.fitness = 0
         
-        # Play multiple games to get a better fitness estimate
         for _ in range(5):
             genome.fitness += play_game(net)
 
 def play_game(net):
     game = Game()
-    max_moves = 100  # Set a maximum number of moves to prevent infinite loops
+    max_moves = 100
     
     for _ in range(max_moves):
         if game.check_winner() != EMPTY:
@@ -24,34 +22,25 @@ def play_game(net):
         
         board_state = get_board_state(game)
         output = net.activate(board_state)
-        move = interpret_output(output, game)
-        
-        valid_moves = get_possible_moves(game)
-        if move not in valid_moves:
-            move = random.choice(valid_moves) if valid_moves else None
+        move = get_valid_move(output, game)
         
         if move:
             make_move(game, move)
         else:
-            break  # No valid moves available, end the game
+            # No valid move available, end the game
+            break
         
-        # Switch player for the next turn
         game.current_player = PLAYER2 if game.current_player == PLAYER1 else PLAYER1
     
     return calculate_fitness(game)
 
 def get_board_state(game):
-    # Flatten the board and normalize values
-    return [cell / 2 for row in game.board for cell in row]
+    return [cell / 2 for row in game.board for cell in row] + [game.current_player / 2]
 
 def get_possible_moves(game):
     moves = []
-    if game.current_player == PLAYER1:
-        current_pieces = game.p1_pieces
-    else:
-        current_pieces = game.p2_pieces
-    
-    if current_pieces < NUM_PIECES:
+    if (game.current_player == PLAYER1 and game.p1_pieces < NUM_PIECES) or \
+       (game.current_player == PLAYER2 and game.p2_pieces < NUM_PIECES):
         # Placement phase
         for r in range(BOARD_SIZE):
             for c in range(BOARD_SIZE):
@@ -68,46 +57,25 @@ def get_possible_moves(game):
                                 moves.append((r0, c0, r1, c1))
     return moves
 
-def interpret_output(output, game):
-    if (game.current_player == PLAYER1 and game.p1_pieces < NUM_PIECES) or \
-       (game.current_player == PLAYER2 and game.p2_pieces < NUM_PIECES):
-        # Placement phase
-        move_index = output.index(max(output[:64]))
-        return (move_index // BOARD_SIZE, move_index % BOARD_SIZE)
-    else:
-        # Movement phase
-        from_index = output.index(max(output[:64]))
-        to_index = 64 + output[64:].index(max(output[64:]))
-        
-        from_row, from_col = from_index // BOARD_SIZE, from_index % BOARD_SIZE
-        to_row, to_col = (to_index - 64) // BOARD_SIZE, (to_index - 64) % BOARD_SIZE
-        
-        return (from_row, from_col, to_row, to_col)
+def get_valid_move(output, game):
+    valid_moves = get_possible_moves(game)
+    if not valid_moves:
+        return None
+
+    if len(valid_moves[0]) == 2:  # Placement phase
+        move_scores = [(move, output[move[0]*BOARD_SIZE + move[1]]) for move in valid_moves]
+    else:  # Movement phase
+        move_scores = [(move, output[move[0]*BOARD_SIZE + move[1]] + output[BOARD_SIZE**2 + move[2]*BOARD_SIZE + move[3]]) 
+                       for move in valid_moves]
+
+    return max(move_scores, key=lambda x: x[1])[0]
+
 def make_move(game, move):
     if len(move) == 2:
-        if game.is_valid_placement(move[0], move[1]):
-            game.place_checker(move[0], move[1])
-            return True
+        game.place_checker(move[0], move[1])
     elif len(move) == 4:
-        if game.is_valid_move(move[0], move[1], move[2], move[3]):
-            game.move_checker(move[0], move[1], move[2], move[3])
-            return True
-    return False
+        game.move_checker(move[0], move[1], move[2], move[3])
 
-def get_random_move(game):
-    if (game.current_player == PLAYER1 and game.p1_pieces < NUM_PIECES) or \
-       (game.current_player == PLAYER2 and game.p2_pieces < NUM_PIECES):
-        # Placement phase
-        empty_cells = [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE) if game.board[r][c] == EMPTY]
-        return random.choice(empty_cells)
-    else:
-        # Movement phase
-        player_pieces = [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE) if game.board[r][c] == game.current_player]
-        empty_cells = [(r, c) for r in range(BOARD_SIZE) for c in range(BOARD_SIZE) if game.board[r][c] == EMPTY]
-        from_piece = random.choice(player_pieces)
-        to_cell = random.choice(empty_cells)
-        return from_piece + to_cell
-    
 def calculate_fitness(game):
     winner = game.check_winner()
     if winner == PLAYER1:
@@ -115,10 +83,9 @@ def calculate_fitness(game):
     elif winner == PLAYER2:
         return -1
     else:
-        # If no winner, calculate based on piece difference and board control
         piece_diff = game.p1_pieces - game.p2_pieces
-        control_score = sum(sum(row) for row in game.board)  # Positive for PLAYER1 control, negative for PLAYER2
-        return (piece_diff + control_score * 0.1) / 10  # Normalize the score
+        control_score = sum(sum(row) for row in game.board)
+        return (piece_diff + control_score * 0.1) / 10
 
 def run_neat(config_file):
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
@@ -130,9 +97,8 @@ def run_neat(config_file):
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     
-    winner = p.run(eval_genomes, 50)  # Run for 50 generations
+    winner = p.run(eval_genomes, 5)
     
-    # Save the winner
     with open('best_genome.pkl', 'wb') as f:
         pickle.dump(winner, f)
 

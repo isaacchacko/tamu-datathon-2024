@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
 import pickle
 import neat
+import random
 
 # Import This
 # from <AGENT FILENAME> import <AGENT CLASSNAME>
@@ -88,8 +89,23 @@ def make_move():
 
     # Move logic should go here
     # This is where you'd call your minimax/MCTS/neural network/etc
-
-    move = agent.get_best_move(game)
+    board_state = agent.get_board_state(game)
+    output = agent.net.activate(board_state)
+    
+    valid_moves = agent.get_possible_moves(game)
+    move = None
+    
+    # Try moves in order of network preference until a valid move is found
+    sorted_outputs = sorted(enumerate(output), key=lambda x: x[1], reverse=True)
+    for index, _ in sorted_outputs:
+        potential_move = agent.interpret_output([0]*len(output), game, index)
+        if potential_move in valid_moves:
+            move = potential_move
+            break
+    
+    if move is None:
+        # If no valid move is found, choose a random valid move
+        move = random.choice(valid_moves) if valid_moves else None
 
     ###################
     

@@ -1,0 +1,1621 @@
+Game 1
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.013s, P2: 0.005s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [5, 0] or a3
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [3, 0] or a5
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [2, 0] or a6
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [6, 3] or d2
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+B . . . . . . .
+. . . B . . . .
+. . . . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+B . . . . . . .
+. . . B . . . .
+. . . . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [7, 4] or e1
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+B . B . . . . .
+. . . . . . . .
+. . . . B . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Player 1 has no random moves left. Forfeiting.
+Winner: PLAYER2
+Game String: r-a3r-a5r-a6r-d2r-e1-q
+
+==================================================
+
+Game 2
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.009s, P2: 0.003s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [2, 4] or e6
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [6, 4] or e2
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [4, 6] or g4
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [0, 2] or c8
+. . B . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [2, 1] or b6
+. . B . . . . .
+. . . . . . . .
+. B . . B . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Player 1 has no random moves left. Forfeiting.
+Winner: PLAYER2
+Game String: r-e6r-e2r-g4r-c8r-b6-q
+
+==================================================
+
+Game 3
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.010s, P2: 0.003s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [6, 5] or f2
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [2, 3] or d6
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [6, 4] or e2
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . B .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . B .
+. . . . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [0, 7] or h8
+. . . . . . . B
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . B .
+. . . . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+. . . . . . . B
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . B .
+. . . . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [1, 6] or g7
+. . . . . . . .
+. . . . . . B .
+. . . B . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . B .
+B . . . . . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Player 1 has no random moves left. Forfeiting.
+Winner: PLAYER2
+Game String: r-f2r-d6r-e2r-h8r-g7-q
+
+==================================================
+
+Game 4
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.011s, P2: 0.003s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [4, 7] or h4
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [0, 2] or c8
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [6, 2] or c2
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [3, 5] or f5
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [2, 1] or b6
+. . B . . . . .
+. . . . . . . .
+. B . . . . . .
+. . . . . B . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Player 1 has no random moves left. Forfeiting.
+Winner: PLAYER2
+Game String: r-h4r-c8r-c2r-f5r-b6-q
+
+==================================================
+
+Game 5
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.012s, P2: 0.005s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [0, 2] or c8
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [5, 0] or a3
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [6, 0] or a2
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [3, 1] or b5
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. B . . . . . .
+. . . . . . . .
+. . . . . . . B
+B . . . . . . .
+. . . . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. B . . . . . .
+. . . . . . . .
+. . . . . . . B
+B . . . . . . .
+. . . . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [1, 6] or g7
+. . B . . . . .
+. . . . . . B .
+. . . . . . . .
+. B . . . . . .
+. . . . . . . .
+. . . . . . . B
+B . . . . . . .
+. . . . . . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Player 1 has no random moves left. Forfeiting.
+Winner: PLAYER2
+Game String: r-c8r-a3r-a2r-b5r-g7-q
+
+==================================================
+
+Game 6
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.009s, P2: 0.003s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [5, 7] or h3
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [7, 2] or c1
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [2, 6] or g6
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [0, 4] or e8
+. . . . B . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+. . . . B . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [3, 4] or e5
+. . . . B . . .
+. . . . . . . .
+. . . . . . B .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+. . B . . . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Player 1 has no random moves left. Forfeiting.
+Winner: PLAYER2
+Game String: r-h3r-c1r-g6r-e8r-e5-q
+
+==================================================
+
+Game 7
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.011s, P2: 0.004s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [5, 6] or g3
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [6, 2] or c2
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . B . . . . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . B . . . . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [0, 2] or c8
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . B . . . . .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . B . . . . .
+. . . . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [5, 2] or c3
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . B .
+. . . . . . . .
+. . B . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . B .
+. . . . . . . .
+. . B . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [6, 2] or c2
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . . .
+. . . . . . B .
+. . B . . . . .
+. . B . . . . .
+Winner: PLAYER2
+Game String: r-g3r-c2r-c8r-c3r-c2
+
+==================================================
+
+Game 8
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.012s, P2: 0.003s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [0, 0] or a8
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [4, 2] or c4
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [6, 0] or a2
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [3, 4] or e5
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . B . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . B . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [2, 1] or b6
+B . . . . . . .
+. . . . . . . .
+. B . . . . . .
+. . . . B . . .
+. . B . . . . .
+. . . . . . . .
+B . . . . . . .
+. . . . . . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Player 1 has no random moves left. Forfeiting.
+Winner: PLAYER2
+Game String: r-a8r-c4r-a2r-e5r-b6-q
+
+==================================================
+
+Game 9
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.010s, P2: 0.004s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [0, 0] or a8
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [2, 6] or g6
+B . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+B . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [5, 4] or e3
+B . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+B . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [5, 3] or d3
+B . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . B . B . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+B . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . . B . B . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [5, 2] or c3
+B . . . . . . .
+. . . . . . . .
+. . . . . . B .
+. . . . . . . .
+. . . . . . . .
+. . B . B B . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Player 1 has no random moves left. Forfeiting.
+Winner: PLAYER2
+Game String: r-a8r-g6r-e3r-d3r-c3-q
+
+==================================================
+
+Game 10
+Creating judge...
+Player 1: Agent1 (Participant1)
+Player 2: Agent2 (Participant2)
+Initial latencies - P1: 0.009s, P2: 0.003s
+Starting game...
+Turn 1
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 4 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 2
+Sending move to: -1
+First move attempt
+-1's move is: [4, 5] or f4
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 3
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 3 random moves left
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 4
+Sending move to: -1
+First move attempt
+-1's move is: [0, 0] or a8
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 5
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 2 random moves left
+B . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 6
+Sending move to: -1
+First move attempt
+-1's move is: [0, 2] or c8
+B . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 7
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 1 random moves left
+B . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+
+Turn 8
+Sending move to: -1
+First move attempt
+-1's move is: [6, 7] or h2
+B . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+
+Turn 9
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Invalid move format by Player P1
+P1 has 0 random moves left
+B . B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+
+Turn 10
+Sending move to: -1
+First move attempt
+-1's move is: [0, 3] or d8
+B B . B . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . . . . . . .
+. . . . . . . B
+. . . . . . . .
+
+Turn 11
+Sending move to: 1
+First move attempt
+Second move attempt
+Player PLAYER1 failed to make a valid move.
+Player 1 has no random moves left. Forfeiting.
+Winner: PLAYER2
+Game String: r-f4r-a8r-c8r-h2r-d8-q
+
+==================================================
+
+
+Final Results:
+Player 1 wins: 0
+Player 2 wins: 10
+Errors: 0
+Player 1 win rate: 0.00%
+Player 2 win rate: 100.00%
+Error rate: 0.00%
