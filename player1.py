@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from PushBattle import Game, PLAYER1, PLAYER2, EMPTY, BOARD_SIZE, NUM_PIECES, _torus
+import pickle
+import neat
 
 # Import This
 # from <AGENT FILENAME> import <AGENT CLASSNAME>
@@ -39,9 +41,11 @@ def start_game():
     if agent is None:
         config_path = os.path.join(os.path.dirname(__file__), 'neat_config.txt')
         agent = NEATAgent(config_path)
-        if not agent.load_genome():
-            print("No saved genome found. Training a new one...")
-            agent.train(generations=1000)  # Adjust the number of generations as needed
+        # Load the best genome
+        with open('best_genome.pkl', 'rb') as f:
+            best_genome = pickle.load(f)
+        # Create the neural network from the loaded genome
+        agent.net = neat.nn.FeedForwardNetwork.create(best_genome, agent.config)
             
     ###################
     
