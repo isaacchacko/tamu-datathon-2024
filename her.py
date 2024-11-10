@@ -8,5 +8,5 @@ class HisAgent:
         self.lastFitness = 0
 
     # given the game state, gets all of the possible moves
-    def get_best_move(self, game, board, turn_count, attempt_number, lastFitness):
+    def get_best_move(self, game, board, turn_count, attempt_number):
         move, self.lastFitness = get_best_move_and_fitness(game, board, turn_count, attempt_number, self.lastFitness)
