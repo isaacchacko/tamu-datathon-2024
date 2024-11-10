@@ -35,6 +35,7 @@ tensorboard==2.16.2
 tensorboard-data-server==0.7.2
 tensorflow==2.16.2
 termcolor==2.5.0
+tqdm==4.67.0
 typing_extensions==4.12.2
 urllib3==2.2.3
 Werkzeug==3.1.3
